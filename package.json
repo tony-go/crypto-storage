@@ -1,0 +1,20 @@
+{
+  "name": "crypto-storage",
+  "version": "0.0.0",
+  "description": "Save and load encrypted data in browser local storage.",
+  "main": "index.js",
+  "scripts": {
+    "dev": "watchify test.js -o build.js"
+  },
+  "keywords": [
+    "cryptography",
+    "browser",
+    "localStorage"
+  ],
+  "author": "Tony Gorez",
+  "license": "MIT",
+  "devDependencies": {
+    "standard": "^13.1.0",
+    "watchify": "^3.11.1"
+  }
+}
