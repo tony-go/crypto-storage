@@ -45,7 +45,8 @@ CryptoStorage.prototype._setDb = function () {
     if (!window || !window.localStorage) {
       reject('localStorage is not available for now')
     }
-    resolve(window.localStorage.getItem(mainKey) || {})
+    // resolve(window.localStorage.getItem(mainKey) || {})
+    resolve({})
   })
 }
 
@@ -59,11 +60,14 @@ CryptoStorage.prototype.setItem = async function (key, value) {
   this._db[key] = value
   const bufferDB = encode(this._db)
   const nonce = crypto.getRandomValues(new Uint8Array(16))
-  const algorithm = { name: 'ASE_CGM', iv: nonce }
+  const algorithm = { name: 'AES-GCM', iv: nonce }
 
   const derivedKey = await getKey(this._userPw)
   const cryptoDB = await crypto.subtle.encrypt(algorithm, derivedKey, bufferDB)
-  window.localStorage.setItem(mainKey, JSON.stringify(cryptoDB))
+  console.log(cryptoDB)
+  console.log(String.fromCharCode.apply(null, cryptoDB))
+  const formattedCryptoDB = JSON.stringify(Array.from(Object.values(cryptoDB).map(x => Array.from(x))))
+  window.localStorage.setItem(mainKey, JSON.stringify(formattedCryptoDB))
   this.emit('data', this._db)
 
 }
