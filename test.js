@@ -7,7 +7,7 @@ storage.on('ready', async function(err) {
   if (err) throw err
   console.log('CryptoStorage is ready !')
   await storage.setPassword('toto')
-  await storage.setItem('wife', 'jamila')
+  // await storage.setItem('wife', 'jamila')
 })
 
 storage.on('data', data => {

@@ -3,6 +3,7 @@
 const { EventEmitter } = require('events')
 const mainKey = 'cs_root'
 const saltKey = 'salt_key'
+const BASE_CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
 
 function CryptoStorage () {
   if (!(this instanceof CryptoStorage)) return new CryptoStorage()
@@ -64,13 +65,27 @@ CryptoStorage.prototype.setItem = async function (key, value) {
 
   const derivedKey = await getKey(this._userPw)
   const cryptoDB = await crypto.subtle.encrypt(algorithm, derivedKey, bufferDB)
-  console.log(cryptoDB)
-  console.log(String.fromCharCode.apply(null, cryptoDB))
-  const formattedCryptoDB = JSON.stringify(Array.from(Object.values(cryptoDB).map(x => Array.from(x))))
-  window.localStorage.setItem(mainKey, JSON.stringify(formattedCryptoDB))
+  console.log(cryptoDB.buffer)
+  const formattedCryptoDB = arrayBufferToBase64(cryptoDB)
+  window.localStorage.setItem(mainKey, formattedCryptoDB)
   this.emit('data', this._db)
 
 }
+
+function arrayBufferToBase64 (buffer) {
+  let base64String = '';
+  let bytes = new Uint8Array(buffer);
+  let len = bytes.byteLength;
+  for (let i = 0; i < len; i++) {
+    base64String += String.fromCharCode(bytes[i]);
+  }
+  return window.btoa(base64String);
+}
+
+function base64ToArrayBuffer (string) {
+  // todo
+}
+
 
 CryptoStorage.prototype.getItem = function () {
   return null
@@ -99,7 +114,9 @@ function generateSalt () {
 }
 
 function getSalt () {
-  return new Uint8Array(JSON.parse(window.localStorage.getItem(saltKey))) || generateSalt()
+  return window.localStorage.getItem(saltKey)
+    ? new Uint8Array(JSON.parse(window.localStorage.getItem(saltKey)))
+    : generateSalt()
 }
 
 async function getKey (pw) {
@@ -119,5 +136,3 @@ async function getKey (pw) {
       ['encrypt', 'decrypt']
     )
 }
-
-
