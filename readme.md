@@ -38,7 +38,7 @@ storage.on('data', data => {
 })
 ```
 
-##API
+## API
 
 ### Methods
 
