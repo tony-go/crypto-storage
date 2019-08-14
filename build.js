@@ -4,7 +4,8 @@
 const { EventEmitter } = require('events')
 const mainKey = 'cs_root'
 const saltKey = 'salt_key'
-const BASE_CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
+const nonceKey = 'nonce'
+const PASSWORD_LENGTH = 5
 
 function CryptoStorage () {
   if (!(this instanceof CryptoStorage)) return new CryptoStorage()
@@ -13,14 +14,9 @@ function CryptoStorage () {
   // variables
   this._ready = false
   this._userPw = null
-  this._db = null
 
   // init
-  Promise.all([
-    this._setDb(),
-  ]).then(values => {
-    const [db] = values
-    this._db = db
+  this._checkStorage().then(() => {
     this._ready = true
     this.emit('ready', null)
   }).catch(error => this.emit('ready', error))
@@ -30,7 +26,10 @@ function CryptoStorage () {
 CryptoStorage.prototype = Object.create(EventEmitter.prototype)
 
 CryptoStorage.prototype.setPassword = async function (password) {
-  // add type check
+  if (!this._ready) throw new Error('impossible to set password if storage is not ready')
+  if (!password || typeof password !== 'string' || password.length >= PASSWORD_LENGTH) {
+    throw new Error('password should be a string of 5 characters')
+  }
   const bufferPW = new TextEncoder('utf-8').encode(password)
   this._userPw = await crypto.subtle.importKey(
     'raw',
@@ -42,59 +41,61 @@ CryptoStorage.prototype.setPassword = async function (password) {
   return this._userPw
 }
 
-CryptoStorage.prototype._setDb = function () {
-  return new Promise((resolve, reject) => {
+CryptoStorage.prototype._checkStorage = function () {
+  return new Promise(async (resolve, reject) => {
     if (!window || !window.localStorage) {
       reject('localStorage is not available for now')
     }
-    // resolve(window.localStorage.getItem(mainKey) || {})
-    resolve({})
+    resolve()
   })
 }
 
-CryptoStorage.prototype._getDb = function () {
-  return null
+CryptoStorage.prototype._getDb = async function () {
+  const bufferDB = window.localStorage.getItem(mainKey);
+  if (bufferDB) {
+    const encryptDB = base64ToArrayBuffer(bufferDB)
+    const nonce = getNonce()
+    const algorithm = { name: 'AES-GCM', iv: nonce }
+
+    const derivedKey = await getDerivedKey(this._userPw)
+    const cryptoDB = await crypto.subtle.decrypt(algorithm, derivedKey, encryptDB)
+    return decode(cryptoDB);
+  }
+  return {}
 }
 
 CryptoStorage.prototype.setItem = async function (key, value) {
-  // add type check
-  // add password check
-  this._db[key] = value
-  const bufferDB = encode(this._db)
-  const nonce = crypto.getRandomValues(new Uint8Array(16))
+  if (!key || !value) throw new Error('key (String) and value (String | Array) args are required')
+  if (typeof key !== 'string') throw new Error('key (String) arg should be a string')
+  if (!this._userPw) throw new Error('password is not set')
+  const db = await this._getDb()
+  if (db) {
+    db[key] = value
+  }
+  const bufferDB = encode(db)
+  const nonce = getNonce()
   const algorithm = { name: 'AES-GCM', iv: nonce }
 
-  const derivedKey = await getKey(this._userPw)
+  const derivedKey = await getDerivedKey(this._userPw)
   const cryptoDB = await crypto.subtle.encrypt(algorithm, derivedKey, bufferDB)
-  console.log(cryptoDB.buffer)
   const formattedCryptoDB = arrayBufferToBase64(cryptoDB)
   window.localStorage.setItem(mainKey, formattedCryptoDB)
-  this.emit('data', this._db)
-
+  this.emit('data', { [key]: value })
 }
 
-function arrayBufferToBase64 (buffer) {
-  let base64String = '';
-  let bytes = new Uint8Array(buffer);
-  let len = bytes.byteLength;
-  for (let i = 0; i < len; i++) {
-    base64String += String.fromCharCode(bytes[i]);
-  }
-  return window.btoa(base64String);
-}
-
-function base64ToArrayBuffer (string) {
-  // todo
-}
-
-
-CryptoStorage.prototype.getItem = function () {
-  return null
+CryptoStorage.prototype.getItem = async function (key) {
+  if (!key || typeof key !== 'string') throw new Error('key arg (String) is required')
+  if (!this._userPw) throw new Error('password is not set')
+  const db = await this._getDb()
+  if (!db) throw new Error('storage is empty')
+  if (!db[key]) throw new Error(`the key ${key} doesn't exist in the db`) // throw ???
+  return db[key]
 }
 
 module.exports = CryptoStorage
 
 // utils
+
 function encode(object) {
   if (!object || typeof object !== 'object') throw new Error('object args (object) is required')
   return new TextEncoder('utf-8').encode(JSON.stringify(object))
@@ -120,7 +121,7 @@ function getSalt () {
     : generateSalt()
 }
 
-async function getKey (pw) {
+async function getDerivedKey (pw) {
     const salt = getSalt()
     const params = {
       name: "PBKDF2",
@@ -138,6 +139,37 @@ async function getKey (pw) {
     )
 }
 
+function generateNonce () {
+  const nonce = crypto.getRandomValues(new Uint8Array(16));
+  window.localStorage.setItem(nonceKey, JSON.stringify(Array.from(nonce)))
+  return nonce
+}
+
+function getNonce () {
+  return window.localStorage.getItem(nonceKey)
+    ? new Uint8Array(JSON.parse(window.localStorage.getItem(nonceKey)))
+    : generateNonce()
+}
+
+function arrayBufferToBase64 (buffer) {
+  let binary = '';
+  let bytes = new Uint8Array(buffer);
+  let len = bytes.byteLength;
+  for (let i = 0; i < len; i++) {
+    binary += String.fromCharCode(bytes[i]);
+  }
+  return window.btoa(binary);
+}
+
+function base64ToArrayBuffer (stringBase64) {
+  const binary = window.atob(stringBase64)
+  const len = binary.length
+  const bytes = new Uint8Array(len);
+  for (let i = 0; i < len; i++) {
+    bytes[i] += binary.charCodeAt(i);
+  }
+  return bytes.buffer;
+}
 },{"events":3}],2:[function(require,module,exports){
 const CryptoStorage = require('.')
 
@@ -148,6 +180,7 @@ storage.on('ready', async function(err) {
   if (err) throw err
   console.log('CryptoStorage is ready !')
   await storage.setPassword('toto')
+  // await storage._getDb()
   // await storage.setItem('wife', 'jamila')
 })
 

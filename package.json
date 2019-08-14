@@ -1,6 +1,6 @@
 {
   "name": "crypto-storage",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Save and load encrypted data in browser local storage.",
   "main": "index.js",
   "scripts": {
