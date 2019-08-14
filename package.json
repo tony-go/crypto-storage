@@ -1,7 +1,7 @@
 {
   "name": "crypto-storage",
-  "version": "0.0.1",
-  "description": "Save and load encrypted data in browser local storage.",
+  "version": "0.0.2",
+  "description": "A light & secure way to store data in browser.",
   "main": "index.js",
   "scripts": {
     "dev": "watchify test.js -o build.js"
@@ -11,10 +11,18 @@
     "browser",
     "localStorage"
   ],
-  "author": "Tony Gorez",
+  "author": "Tony Gorez (@tonygo_)",
   "license": "MIT",
   "devDependencies": {
     "standard": "^13.1.0",
     "watchify": "^3.11.1"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tony-go/crypto-storage.git"
+  },
+  "bugs": {
+    "url": "https://github.com/tony-go/crypto-storage/issues"
+  },
+  "homepage": "https://github.com/tony-go/crypto-storage#readme"
 }
