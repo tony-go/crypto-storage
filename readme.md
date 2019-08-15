@@ -1,4 +1,6 @@
-# crypto-storage
+# crypto-storage 
+
+![logo][logo]
 
 A light & secure way to store data in browser.
 
@@ -59,7 +61,7 @@ Remove an item from the storage.
 Close access to CryptoStorage disabling set/get/removeItem
 
 #### storage.open(password :String)
-Close access to CryptoStorage enabling set/get/removeItem
+Open access to CryptoStorage enabling set/get/removeItem
 
 ### Events
 
@@ -71,3 +73,5 @@ Emitted when the new data is appended to the storage
 
 #### storage.on('close')
 Emitted when CryptoStorage instance is closed
+
+[logo]: https://user-images.githubusercontent.com/22824417/63122825-eb526500-bfa7-11e9-9e6d-d7f8e95b361b.png
