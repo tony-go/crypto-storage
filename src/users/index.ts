@@ -25,6 +25,15 @@ export const userTypeDefs = gql`
   }
 
   input UserInput {
+    firstName: String!
+    lastName: String!
+    email: String!
+    password: String!
+    genre: Genre!
+  }
+
+  input UpdateUserInput {
+    id: String
     firstName: String
     lastName: String
     email: String
@@ -38,7 +47,9 @@ export const userTypeDefs = gql`
   }
 
   extend type Mutation {
-    addUser(user: UserInput): User
+    addUser(user: UserInput!): User
+    updateUser(user: UpdateUserInput!): User
+    deleteUser(id: String!): User
   }
 `;
 
@@ -56,6 +67,15 @@ export const userResolvers = {
     addUser: async (_: any, args: any, { db }: IContext) => {
       const { user } = args;
       return await db.createUser({ ...user });
+    },
+    updateUser: async (_: any, args: any, { db }: IContext) => {
+      const {
+        user: { id, ...userRest },
+      } = args;
+      return await db.updateUser({ where: { id }, data: userRest });
+    },
+    deleteUser: async (_: any, { id }: any, { db }: IContext) => {
+      return await db.deleteUser({ id });
     },
   },
 };
