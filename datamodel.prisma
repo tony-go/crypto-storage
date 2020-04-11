@@ -1,0 +1,28 @@
+enum Role {
+  USER
+  ADMIN
+}
+
+enum Genre {
+  MALE
+  FEMALE
+}
+
+type List {
+  id: ID! @id
+  name: String!
+  author: User! @relation(link: INLINE)
+}
+
+type User {
+  id: ID! @id
+  firstName: String!
+  lastName: String!
+  email: String! @unique
+  password:  String!
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
+  role: Role! @default(value: USER)
+  genre: Genre!
+  list: [List]
+}

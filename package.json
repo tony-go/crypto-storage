@@ -1,0 +1,23 @@
+{
+  "name": "gql-nexus",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "nodemon"
+  },
+  "devDependencies": {
+    "@prisma/cli": "^2.0.0-beta.1",
+    "@types/node": "12.12.28",
+    "ts-node": "8.7.0",
+    "typescript": "3.8.3"
+  },
+  "dependencies": {
+    "@prisma/client": "^2.0.0-beta.1",
+    "@types/lodash": "^4.14.149",
+    "apollo-server": "^2.11.0",
+    "graphql": "^15.0.0",
+    "lodash": "^4.17.15",
+    "prisma-client-lib": "^1.34.10"
+  }
+}
