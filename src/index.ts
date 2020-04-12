@@ -1,15 +1,12 @@
 import { ApolloServer } from "apollo-server";
-import merge from "lodash/fp/merge";
 
 import context from "./context";
-import baseTypeDefs from "./typeDefs";
-
-import { userResolvers, userTypeDefs } from "./users";
-import { listResolvers, listTypeDefs } from "./lists";
+import typeDefs from "./typeDefs";
+import resolvers from "./resolvers";
 
 const server = new ApolloServer({
-  typeDefs: [baseTypeDefs, userTypeDefs, listTypeDefs],
-  resolvers: merge(userResolvers, listResolvers),
+  typeDefs,
+  resolvers,
   context,
 });
 

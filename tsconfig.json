@@ -5,5 +5,6 @@
     "strict": true,
     "lib": ["dom", "esnext"],
     "esModuleInterop": true
-  }
+  },
+  "exclude": ["node_modules", "**/*.test.ts"]
 }
