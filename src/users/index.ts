@@ -1,6 +1,9 @@
 import { gql } from "apollo-server";
 
+import { IUserArgs, IUserIdArgs } from "./types";
+
 import { IContext } from "../context";
+import { Parent } from "../types";
 
 export const userTypeDefs = gql`
   enum Role {
@@ -55,27 +58,31 @@ export const userTypeDefs = gql`
 
 export const userResolvers = {
   Query: {
-    user: async (_: any, args: any, { db }: IContext) => {
+    user: async (parent: Parent, args: IUserIdArgs, { db }: IContext) => {
       const { id } = args;
       return await db.user({ id });
     },
-    users: async (_: any, __: any, { db }: IContext) => {
+    users: async (parent: Parent, args: any, { db }: IContext) => {
       return await db.users();
-    },
+    }
   },
   Mutation: {
-    addUser: async (_: any, args: any, { db }: IContext) => {
+    addUser: async (parent: Parent, args: IUserArgs, { db }: IContext) => {
       const { user } = args;
       return await db.createUser({ ...user });
     },
-    updateUser: async (_: any, args: any, { db }: IContext) => {
+    updateUser: async (parent: Parent, args: IUserArgs, { db }: IContext) => {
       const {
-        user: { id, ...userRest },
+        user: { id, ...userRest }
       } = args;
       return await db.updateUser({ where: { id }, data: userRest });
     },
-    deleteUser: async (_: any, { id }: any, { db }: IContext) => {
+    deleteUser: async (
+      parent: Parent,
+      { id }: IUserIdArgs,
+      { db }: IContext
+    ) => {
       return await db.deleteUser({ id });
-    },
-  },
+    }
+  }
 };

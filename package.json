@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "start": "nodemon",
-    "test": "jest"
+    "test": "jest --watch"
   },
   "devDependencies": {
     "@prisma/cli": "^2.0.0-beta.1",
