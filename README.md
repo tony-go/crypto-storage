@@ -9,9 +9,9 @@ You must install Docker & Node.Js on your computer at first.
 Start DB
 
 ```bash
-docker-compose up
+yarn up
 
-prisma deploy
+yarn deploy
 ```
 
 Install deps

@@ -1,9 +1,12 @@
 {
-  "name": "gql-nexus",
+  "name": "babanu-server",
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
   "scripts": {
+    "up": "docker-compose up",
+    "generate": "prisma generate",
+    "deploy": "prisma deploy",
     "start": "nodemon",
     "test": "jest --watch"
   },
