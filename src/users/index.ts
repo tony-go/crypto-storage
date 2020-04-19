@@ -1,4 +1,5 @@
 import { gql } from "apollo-server";
+import { hash } from "bcrypt";
 
 import { IUserArgs, IUserIdArgs } from "./types";
 
@@ -58,7 +59,7 @@ export const userTypeDefs = gql`
 
 export const userResolvers = {
   Query: {
-    user: async (parent: Parent, args: IUserIdArgs, { db }: IContext) => {
+    user: async (parent: Parent, args: IUserIdArgs, { db, user }: IContext) => {
       const { id } = args;
       return await db.user({ id });
     },
@@ -69,12 +70,16 @@ export const userResolvers = {
   Mutation: {
     addUser: async (parent: Parent, args: IUserArgs, { db }: IContext) => {
       const { user } = args;
+      user.password = await hash(user.password, 10);
       return await db.createUser({ ...user });
     },
     updateUser: async (parent: Parent, args: IUserArgs, { db }: IContext) => {
       const {
         user: { id, ...userRest }
       } = args;
+      if (userRest.password) {
+        userRest.password = await hash(userRest.password, 10);
+      }
       return await db.updateUser({ where: { id }, data: userRest });
     },
     deleteUser: async (

@@ -18,10 +18,12 @@
   },
   "dependencies": {
     "@prisma/client": "^2.0.0-beta.1",
+    "@types/bcrypt": "^3.0.0",
     "@types/jest": "^25.2.1",
     "@types/lodash": "^4.14.149",
     "apollo-server": "^2.11.0",
     "apollo-server-testing": "^2.12.0",
+    "bcrypt": "^4.0.1",
     "graphql": "^15.0.0",
     "jest": "^25.3.0",
     "lodash": "^4.17.15",

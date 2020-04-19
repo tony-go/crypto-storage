@@ -10,8 +10,6 @@ Start DB
 
 ```bash
 yarn up
-
-yarn deploy
 ```
 
 Install deps

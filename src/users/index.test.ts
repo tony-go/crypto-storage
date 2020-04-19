@@ -4,6 +4,11 @@ import {
   ApolloServerTestClient
 } from "apollo-server-testing";
 import { gql } from "apollo-server";
+import { hash } from "bcrypt";
+
+jest.mock("bcrypt", () => ({
+  hash: jest.fn(value => value)
+}));
 
 describe("user module", () => {
   const db = {
@@ -19,6 +24,10 @@ describe("user module", () => {
   const server = createTestServer(context);
   const { query, mutate } = createTestClient(server as any);
   const id = "2";
+
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
 
   describe("queries", () => {
     it("users query should use db.users()", async () => {
@@ -76,10 +85,11 @@ describe("user module", () => {
         variables: { user }
       });
 
+      expect(hash).toHaveBeenCalledWith(user.password, 10);
       expect(db.createUser).toHaveBeenCalledWith(user);
     });
 
-    it("updateUser should call db.updateUser()", async () => {
+    it("updateUser should call db.updateUser() and hash", async () => {
       await mutate({
         mutation: gql`
           mutation updateUser($user: UpdateUserInput!) {
@@ -97,6 +107,34 @@ describe("user module", () => {
       });
 
       expect(db.updateUser).toHaveBeenCalledWith({ where: { id }, data: user });
+      expect(hash).toHaveBeenCalledWith(user.password, 10);
+    });
+
+    it("update user mutation should not call hash if password if not in payload", async () => {
+      const partialUser = {
+        firstName: "toto"
+      };
+      await mutate({
+        mutation: gql`
+          mutation UpdateUser($user: UpdateUserInput!) {
+            updateUser(user: $user) {
+              id
+            }
+          }
+        `,
+        variables: {
+          user: {
+            ...partialUser,
+            id
+          }
+        }
+      });
+
+      expect(db.updateUser).toHaveBeenCalledWith({
+        where: { id },
+        data: partialUser
+      });
+      expect(hash).not.toHaveBeenCalled();
     });
 
     it("delete user mutation should call db.deleteUser()", async () => {
