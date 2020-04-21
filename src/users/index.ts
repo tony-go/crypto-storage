@@ -29,11 +29,11 @@ export const userTypeDefs = gql`
   }
 
   input UserInput {
-    firstName: String!
-    lastName: String!
+    firstName: String
+    lastName: String
     email: String!
     password: String!
-    genre: Genre!
+    genre: Genre
   }
 
   input UpdateUserInput {

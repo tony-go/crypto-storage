@@ -1,8 +1,5 @@
 import { createTestServer } from "../utils/testUtils";
-import {
-  createTestClient,
-  ApolloServerTestClient
-} from "apollo-server-testing";
+import { createTestClient } from "apollo-server-testing";
 import { gql } from "apollo-server";
 import { hash } from "bcrypt";
 

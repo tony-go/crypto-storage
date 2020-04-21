@@ -1,10 +1,24 @@
 import { prisma, Prisma } from "./generated/prisma-client";
+import { verify } from "jsonwebtoken";
+import { secretKey } from "./auth";
 
 export interface IContext {
   db: Prisma;
-  user?: object;
+  user?: string | null | object;
 }
 
-export default (): IContext => ({
-  db: prisma,
-});
+function getUser(token: string): string | null | object {
+  if (!token) {
+    return verify(token, secretKey);
+  }
+  return null;
+}
+
+export default ({ req }: any): IContext => {
+  const token = req.headers.authorization || "";
+
+  return {
+    db: prisma,
+    user: getUser(token)
+  };
+};
