@@ -31,3 +31,9 @@ Run tests
 ```bash
 yarn test
 ```
+
+## Todo
+
+- authorizations
+- logger
+- handle errors
