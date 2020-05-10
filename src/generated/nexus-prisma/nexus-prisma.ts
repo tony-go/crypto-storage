@@ -15,10 +15,18 @@ export interface NexusPrismaTypes {
   objectTypes: {
     fields: {
       Query: QueryObject
+      Gift: GiftObject
       List: ListObject
       User: UserObject
-      ListConnection: ListConnectionObject
+      Member: MemberObject
+      GiftConnection: GiftConnectionObject
       PageInfo: PageInfoObject
+      GiftEdge: GiftEdgeObject
+      AggregateGift: AggregateGiftObject
+      MemberConnection: MemberConnectionObject
+      MemberEdge: MemberEdgeObject
+      AggregateMember: AggregateMemberObject
+      ListConnection: ListConnectionObject
       ListEdge: ListEdgeObject
       AggregateList: AggregateListObject
       UserConnection: UserConnectionObject
@@ -27,6 +35,10 @@ export interface NexusPrismaTypes {
       Mutation: MutationObject
       BatchPayload: BatchPayloadObject
       Subscription: SubscriptionObject
+      GiftSubscriptionPayload: GiftSubscriptionPayloadObject
+      GiftPreviousValues: GiftPreviousValuesObject
+      MemberSubscriptionPayload: MemberSubscriptionPayloadObject
+      MemberPreviousValues: MemberPreviousValuesObject
       ListSubscriptionPayload: ListSubscriptionPayloadObject
       ListPreviousValues: ListPreviousValuesObject
       UserSubscriptionPayload: UserSubscriptionPayloadObject
@@ -34,10 +46,18 @@ export interface NexusPrismaTypes {
     }
     fieldsDetails: {
       Query: QueryFieldDetails
+      Gift: GiftFieldDetails
       List: ListFieldDetails
       User: UserFieldDetails
-      ListConnection: ListConnectionFieldDetails
+      Member: MemberFieldDetails
+      GiftConnection: GiftConnectionFieldDetails
       PageInfo: PageInfoFieldDetails
+      GiftEdge: GiftEdgeFieldDetails
+      AggregateGift: AggregateGiftFieldDetails
+      MemberConnection: MemberConnectionFieldDetails
+      MemberEdge: MemberEdgeFieldDetails
+      AggregateMember: AggregateMemberFieldDetails
+      ListConnection: ListConnectionFieldDetails
       ListEdge: ListEdgeFieldDetails
       AggregateList: AggregateListFieldDetails
       UserConnection: UserConnectionFieldDetails
@@ -46,6 +66,10 @@ export interface NexusPrismaTypes {
       Mutation: MutationFieldDetails
       BatchPayload: BatchPayloadFieldDetails
       Subscription: SubscriptionFieldDetails
+      GiftSubscriptionPayload: GiftSubscriptionPayloadFieldDetails
+      GiftPreviousValues: GiftPreviousValuesFieldDetails
+      MemberSubscriptionPayload: MemberSubscriptionPayloadFieldDetails
+      MemberPreviousValues: MemberPreviousValuesFieldDetails
       ListSubscriptionPayload: ListSubscriptionPayloadFieldDetails
       ListPreviousValues: ListPreviousValuesFieldDetails
       UserSubscriptionPayload: UserSubscriptionPayloadFieldDetails
@@ -54,37 +78,55 @@ export interface NexusPrismaTypes {
   }
   inputTypes: {
     fields: {
-      ListWhereUniqueInput: ListWhereUniqueInputInputObject
-      ListWhereInput: ListWhereInputInputObject
+      GiftWhereUniqueInput: GiftWhereUniqueInputInputObject
+      MemberWhereInput: MemberWhereInputInputObject
       UserWhereInput: UserWhereInputInputObject
+      GiftWhereInput: GiftWhereInputInputObject
+      ListWhereInput: ListWhereInputInputObject
+      MemberWhereUniqueInput: MemberWhereUniqueInputInputObject
+      ListWhereUniqueInput: ListWhereUniqueInputInputObject
       UserWhereUniqueInput: UserWhereUniqueInputInputObject
+      GiftCreateInput: GiftCreateInputInputObject
+      ListCreateOneInput: ListCreateOneInputInputObject
       ListCreateInput: ListCreateInputInputObject
-      UserCreateOneWithoutListInput: UserCreateOneWithoutListInputInputObject
-      UserCreateWithoutListInput: UserCreateWithoutListInputInputObject
-      ListUpdateInput: ListUpdateInputInputObject
-      UserUpdateOneRequiredWithoutListInput: UserUpdateOneRequiredWithoutListInputInputObject
-      UserUpdateWithoutListDataInput: UserUpdateWithoutListDataInputInputObject
-      UserUpsertWithoutListInput: UserUpsertWithoutListInputInputObject
-      ListUpdateManyMutationInput: ListUpdateManyMutationInputInputObject
+      UserCreateOneInput: UserCreateOneInputInputObject
       UserCreateInput: UserCreateInputInputObject
-      ListCreateManyWithoutAuthorInput: ListCreateManyWithoutAuthorInputInputObject
-      ListCreateWithoutAuthorInput: ListCreateWithoutAuthorInputInputObject
+      MemberCreateManyInput: MemberCreateManyInputInputObject
+      MemberCreateInput: MemberCreateInputInputObject
+      GiftUpdateInput: GiftUpdateInputInputObject
+      ListUpdateOneRequiredInput: ListUpdateOneRequiredInputInputObject
+      ListUpdateDataInput: ListUpdateDataInputInputObject
+      UserUpdateOneRequiredInput: UserUpdateOneRequiredInputInputObject
+      UserUpdateDataInput: UserUpdateDataInputInputObject
+      UserUpsertNestedInput: UserUpsertNestedInputInputObject
+      MemberUpdateManyInput: MemberUpdateManyInputInputObject
+      MemberUpdateWithWhereUniqueNestedInput: MemberUpdateWithWhereUniqueNestedInputInputObject
+      MemberUpdateDataInput: MemberUpdateDataInputInputObject
+      MemberUpsertWithWhereUniqueNestedInput: MemberUpsertWithWhereUniqueNestedInputInputObject
+      MemberScalarWhereInput: MemberScalarWhereInputInputObject
+      MemberUpdateManyWithWhereNestedInput: MemberUpdateManyWithWhereNestedInputInputObject
+      MemberUpdateManyDataInput: MemberUpdateManyDataInputInputObject
+      ListUpsertNestedInput: ListUpsertNestedInputInputObject
+      UserUpdateOneInput: UserUpdateOneInputInputObject
+      GiftUpdateManyMutationInput: GiftUpdateManyMutationInputInputObject
+      MemberUpdateInput: MemberUpdateInputInputObject
+      MemberUpdateManyMutationInput: MemberUpdateManyMutationInputInputObject
+      ListUpdateInput: ListUpdateInputInputObject
+      ListUpdateManyMutationInput: ListUpdateManyMutationInputInputObject
       UserUpdateInput: UserUpdateInputInputObject
-      ListUpdateManyWithoutAuthorInput: ListUpdateManyWithoutAuthorInputInputObject
-      ListUpdateWithWhereUniqueWithoutAuthorInput: ListUpdateWithWhereUniqueWithoutAuthorInputInputObject
-      ListUpdateWithoutAuthorDataInput: ListUpdateWithoutAuthorDataInputInputObject
-      ListUpsertWithWhereUniqueWithoutAuthorInput: ListUpsertWithWhereUniqueWithoutAuthorInputInputObject
-      ListScalarWhereInput: ListScalarWhereInputInputObject
-      ListUpdateManyWithWhereNestedInput: ListUpdateManyWithWhereNestedInputInputObject
-      ListUpdateManyDataInput: ListUpdateManyDataInputInputObject
       UserUpdateManyMutationInput: UserUpdateManyMutationInputInputObject
+      GiftSubscriptionWhereInput: GiftSubscriptionWhereInputInputObject
+      MemberSubscriptionWhereInput: MemberSubscriptionWhereInputInputObject
       ListSubscriptionWhereInput: ListSubscriptionWhereInputInputObject
       UserSubscriptionWhereInput: UserSubscriptionWhereInputInputObject
     }
   }
   enumTypes: {
-    Role: RoleValues,
     Genre: GenreValues,
+    Role: RoleValues,
+    MemberShip: MemberShipValues,
+    MemberOrderByInput: MemberOrderByInputValues,
+    GiftOrderByInput: GiftOrderByInputValues,
     ListOrderByInput: ListOrderByInputValues,
     UserOrderByInput: UserOrderByInputValues,
     MutationType: MutationTypeValues,
@@ -95,6 +137,12 @@ export interface NexusPrismaTypes {
 
 type QueryObject =
   | QueryFields
+  | { name: 'gift', args?: QueryGiftArgs[] | false, alias?: string  } 
+  | { name: 'gifts', args?: QueryGiftsArgs[] | false, alias?: string  } 
+  | { name: 'giftsConnection', args?: QueryGiftsConnectionArgs[] | false, alias?: string  } 
+  | { name: 'member', args?: QueryMemberArgs[] | false, alias?: string  } 
+  | { name: 'members', args?: QueryMembersArgs[] | false, alias?: string  } 
+  | { name: 'membersConnection', args?: QueryMembersConnectionArgs[] | false, alias?: string  } 
   | { name: 'list', args?: QueryListArgs[] | false, alias?: string  } 
   | { name: 'lists', args?: QueryListsArgs[] | false, alias?: string  } 
   | { name: 'listsConnection', args?: QueryListsConnectionArgs[] | false, alias?: string  } 
@@ -103,6 +151,12 @@ type QueryObject =
   | { name: 'usersConnection', args?: QueryUsersConnectionArgs[] | false, alias?: string  } 
 
 type QueryFields =
+  | 'gift'
+  | 'gifts'
+  | 'giftsConnection'
+  | 'member'
+  | 'members'
+  | 'membersConnection'
   | 'list'
   | 'lists'
   | 'listsConnection'
@@ -111,6 +165,42 @@ type QueryFields =
   | 'usersConnection'
 
 
+type QueryGiftArgs =
+  | 'where'
+type QueryGiftsArgs =
+  | 'where'
+  | 'orderBy'
+  | 'skip'
+  | 'after'
+  | 'before'
+  | 'first'
+  | 'last'
+type QueryGiftsConnectionArgs =
+  | 'where'
+  | 'orderBy'
+  | 'skip'
+  | 'after'
+  | 'before'
+  | 'first'
+  | 'last'
+type QueryMemberArgs =
+  | 'where'
+type QueryMembersArgs =
+  | 'where'
+  | 'orderBy'
+  | 'skip'
+  | 'after'
+  | 'before'
+  | 'first'
+  | 'last'
+type QueryMembersConnectionArgs =
+  | 'where'
+  | 'orderBy'
+  | 'skip'
+  | 'after'
+  | 'before'
+  | 'first'
+  | 'last'
 type QueryListArgs =
   | 'where'
 type QueryListsArgs =
@@ -150,6 +240,84 @@ type QueryUsersConnectionArgs =
   
 
 export interface QueryFieldDetails {
+  gift: {
+    type: 'Gift'
+    args: Record<QueryGiftArgs, core.NexusArgDef<string>>
+    description: string
+    list: undefined
+    nullable: true
+    resolve: (
+      root: core.RootValue<"Query">,
+      args: { where: GiftWhereUniqueInput }  ,
+      context: core.GetGen<"context">,
+      info?: GraphQLResolveInfo
+    ) => Promise<prisma.Gift | null> | prisma.Gift | null
+  }
+  gifts: {
+    type: 'Gift'
+    args: Record<QueryGiftsArgs, core.NexusArgDef<string>>
+    description: string
+    list: true
+    nullable: false
+    resolve: (
+      root: core.RootValue<"Query">,
+      args: { where?: GiftWhereInput | null, orderBy?: prisma.GiftOrderByInput | null, skip?: number | null, after?: string | null, before?: string | null, first?: number | null, last?: number | null }  ,
+      context: core.GetGen<"context">,
+      info?: GraphQLResolveInfo
+    ) => Promise<prisma.Gift[]> | prisma.Gift[]
+  }
+  giftsConnection: {
+    type: 'GiftConnection'
+    args: Record<QueryGiftsConnectionArgs, core.NexusArgDef<string>>
+    description: string
+    list: undefined
+    nullable: false
+    resolve: (
+      root: core.RootValue<"Query">,
+      args: { where?: GiftWhereInput | null, orderBy?: prisma.GiftOrderByInput | null, skip?: number | null, after?: string | null, before?: string | null, first?: number | null, last?: number | null }  ,
+      context: core.GetGen<"context">,
+      info?: GraphQLResolveInfo
+    ) => Promise<prisma.GiftConnection> | prisma.GiftConnection
+  }
+  member: {
+    type: 'Member'
+    args: Record<QueryMemberArgs, core.NexusArgDef<string>>
+    description: string
+    list: undefined
+    nullable: true
+    resolve: (
+      root: core.RootValue<"Query">,
+      args: { where: MemberWhereUniqueInput }  ,
+      context: core.GetGen<"context">,
+      info?: GraphQLResolveInfo
+    ) => Promise<prisma.Member | null> | prisma.Member | null
+  }
+  members: {
+    type: 'Member'
+    args: Record<QueryMembersArgs, core.NexusArgDef<string>>
+    description: string
+    list: true
+    nullable: false
+    resolve: (
+      root: core.RootValue<"Query">,
+      args: { where?: MemberWhereInput | null, orderBy?: prisma.MemberOrderByInput | null, skip?: number | null, after?: string | null, before?: string | null, first?: number | null, last?: number | null }  ,
+      context: core.GetGen<"context">,
+      info?: GraphQLResolveInfo
+    ) => Promise<prisma.Member[]> | prisma.Member[]
+  }
+  membersConnection: {
+    type: 'MemberConnection'
+    args: Record<QueryMembersConnectionArgs, core.NexusArgDef<string>>
+    description: string
+    list: undefined
+    nullable: false
+    resolve: (
+      root: core.RootValue<"Query">,
+      args: { where?: MemberWhereInput | null, orderBy?: prisma.MemberOrderByInput | null, skip?: number | null, after?: string | null, before?: string | null, first?: number | null, last?: number | null }  ,
+      context: core.GetGen<"context">,
+      info?: GraphQLResolveInfo
+    ) => Promise<prisma.MemberConnection> | prisma.MemberConnection
+  }
   list: {
     type: 'List'
     args: Record<QueryListArgs, core.NexusArgDef<string>>
@@ -231,21 +399,119 @@ export interface QueryFieldDetails {
 }
   
 
+// Types for Gift
+
+type GiftObject =
+  | GiftFields
+  | { name: 'id', args?: [] | false, alias?: string  } 
+  | { name: 'name', args?: [] | false, alias?: string  } 
+  | { name: 'link', args?: [] | false, alias?: string  } 
+  | { name: 'list', args?: [] | false, alias?: string  } 
+  | { name: 'owner', args?: [] | false, alias?: string  } 
+
+type GiftFields =
+  | 'id'
+  | 'name'
+  | 'link'
+  | 'list'
+  | 'owner'
+
+
+
+  
+
+export interface GiftFieldDetails {
+  id: {
+    type: 'ID'
+    args: {}
+    description: string
+    list: undefined
+    nullable: false
+    resolve: undefined
+  }
+  name: {
+    type: 'String'
+    args: {}
+    description: string
+    list: undefined
+    nullable: false
+    resolve: undefined
+  }
+  link: {
+    type: 'String'
+    args: {}
+    description: string
+    list: undefined
+    nullable: false
+    resolve: undefined
+  }
+  list: {
+    type: 'List'
+    args: {}
+    description: string
+    list: undefined
+    nullable: false
+    resolve: (
+      root: core.RootValue<"Gift">,
+      args: {  }  ,
+      context: core.GetGen<"context">,
+      info?: GraphQLResolveInfo
+    ) => Promise<prisma.List> | prisma.List
+  }
+  owner: {
+    type: 'User'
+    args: {}
+    description: string
+    list: undefined
+    nullable: true
+    resolve: (
+      root: core.RootValue<"Gift">,
+      args: {  }  ,
+      context: core.GetGen<"context">,
+      info?: GraphQLResolveInfo
+    ) => Promise<prisma.User | null> | prisma.User | null
+  }
+}
+  
+
 // Types for List
 
 type ListObject =
   | ListFields
   | { name: 'id', args?: [] | false, alias?: string  } 
   | { name: 'name', args?: [] | false, alias?: string  } 
+  | { name: 'description', args?: [] | false, alias?: string  } 
+  | { name: 'familyName', args?: [] | false, alias?: string  } 
+  | { name: 'babyGenre', args?: [] | false, alias?: string  } 
+  | { name: 'babyName', args?: [] | false, alias?: string  } 
+  | { name: 'birthDate', args?: [] | false, alias?: string  } 
   | { name: 'author', args?: [] | false, alias?: string  } 
+  | { name: 'members', args?: ListMembersArgs[] | false, alias?: string  } 
+  | { name: 'isActivated', args?: [] | false, alias?: string  } 
+  | { name: 'isOpen', args?: [] | false, alias?: string  } 
 
 type ListFields =
   | 'id'
   | 'name'
+  | 'description'
+  | 'familyName'
+  | 'babyGenre'
+  | 'babyName'
+  | 'birthDate'
   | 'author'
+  | 'members'
+  | 'isActivated'
+  | 'isOpen'
 
 
-
+type ListMembersArgs =
+  | 'where'
+  | 'orderBy'
+  | 'skip'
+  | 'after'
+  | 'before'
+  | 'first'
+  | 'last'
   
 
 export interface ListFieldDetails {
@@ -265,6 +531,51 @@ export interface ListFieldDetails {
     nullable: false
     resolve: undefined
   }
+  description: {
+    type: 'String'
+    args: {}
+    description: string
+    list: undefined
+    nullable: true
+    resolve: undefined
+  }
+  familyName: {
+    type: 'String'
+    args: {}
+    description: string
+    list: undefined
+    nullable: true
+    resolve: undefined
+  }
+  babyGenre: {
+    type: 'Genre'
+    args: {}
+    description: string
+    list: undefined
+    nullable: true
+    resolve: (
+      root: core.RootValue<"List">,
+      args: {  }  ,
+      context: core.GetGen<"context">,
+      info?: GraphQLResolveInfo
+    ) => Promise<prisma.Genre | null> | prisma.Genre | null
+  }
+  babyName: {
+    type: 'String'
+    args: {}
+    description: string
+    list: undefined
+    nullable: true
+    resolve: undefined
+  }
+  birthDate: {
+    type: 'DateTime'
+    args: {}
+    description: string
+    list: undefined
+    nullable: true
+    resolve: undefined
+  }
   author: {
     type: 'User'
     args: {}
@@ -277,6 +588,35 @@ export interface ListFieldDetails {
       context: core.GetGen<"context">,
       info?: GraphQLResolveInfo
     ) => Promise<prisma.User> | prisma.User
+  }
+  members: {
+    type: 'Member'
+    args: Record<ListMembersArgs, core.NexusArgDef<string>>
+    description: string
+    list: true
+    nullable: false
+    resolve: (
+      root: core.RootValue<"List">,
+      args: { where?: MemberWhereInput | null, orderBy?: prisma.MemberOrderByInput | null, skip?: number | null, after?: string | null, before?: string | null, first?: number | null, last?: number | null }  ,
+      context: core.GetGen<"context">,
+      info?: GraphQLResolveInfo
+    ) => Promise<prisma.Member[]> | prisma.Member[]
+  }
+  isActivated: {
+    type: 'Boolean'
+    args: {}
+    description: string
+    list: undefined
+    nullable: false
+    resolve: undefined
+  }
+  isOpen: {
+    type: 'Boolean'
+    args: {}
+    description: string
+    list: undefined
+    nullable: false
+    resolve: undefined
   }
 }
   
@@ -294,7 +634,6 @@ type UserObject =
   | { name: 'updatedAt', args?: [] | false, alias?: string  } 
   | { name: 'role', args?: [] | false, alias?: string  } 
   | { name: 'genre', args?: [] | false, alias?: string  } 
-  | { name: 'list', args?: UserListArgs[] | false, alias?: string  } 
 
 type UserFields =
   | 'id'
@@ -306,17 +645,9 @@ type UserFields =
   | 'updatedAt'
   | 'role'
   | 'genre'
-  | 'list'
 
 
-type UserListArgs =
-  | 'where'
-  | 'orderBy'
-  | 'skip'
-  | 'after'
-  | 'before'
-  | 'first'
-  | 'last'
+
   
 
 export interface UserFieldDetails {
@@ -402,18 +733,365 @@ export interface UserFieldDetails {
       info?: GraphQLResolveInfo
     ) => Promise<prisma.Genre> | prisma.Genre
   }
-  list: {
-    type: 'List'
-    args: Record<UserListArgs, core.NexusArgDef<string>>
+}
+  
+
+// Types for Member
+
+type MemberObject =
+  | MemberFields
+  | { name: 'id', args?: [] | false, alias?: string  } 
+  | { name: 'user', args?: [] | false, alias?: string  } 
+  | { name: 'status', args?: [] | false, alias?: string  } 
+
+type MemberFields =
+  | 'id'
+  | 'user'
+  | 'status'
+
+
+
+  
+
+export interface MemberFieldDetails {
+  id: {
+    type: 'ID'
+    args: {}
+    description: string
+    list: undefined
+    nullable: false
+    resolve: undefined
+  }
+  user: {
+    type: 'User'
+    args: {}
+    description: string
+    list: undefined
+    nullable: false
+    resolve: (
+      root: core.RootValue<"Member">,
+      args: {  }  ,
+      context: core.GetGen<"context">,
+      info?: GraphQLResolveInfo
+    ) => Promise<prisma.User> | prisma.User
+  }
+  status: {
+    type: 'MemberShip'
+    args: {}
+    description: string
+    list: undefined
+    nullable: true
+    resolve: (
+      root: core.RootValue<"Member">,
+      args: {  }  ,
+      context: core.GetGen<"context">,
+      info?: GraphQLResolveInfo
+    ) => Promise<prisma.MemberShip | null> | prisma.MemberShip | null
+  }
+}
+  
+
+// Types for GiftConnection
+
+type GiftConnectionObject =
+  | GiftConnectionFields
+  | { name: 'pageInfo', args?: [] | false, alias?: string  } 
+  | { name: 'edges', args?: [] | false, alias?: string  } 
+  | { name: 'aggregate', args?: [] | false, alias?: string  } 
+
+type GiftConnectionFields =
+  | 'pageInfo'
+  | 'edges'
+  | 'aggregate'
+
+
+
+  
+
+export interface GiftConnectionFieldDetails {
+  pageInfo: {
+    type: 'PageInfo'
+    args: {}
+    description: string
+    list: undefined
+    nullable: false
+    resolve: (
+      root: core.RootValue<"GiftConnection">,
+      args: {  }  ,
+      context: core.GetGen<"context">,
+      info?: GraphQLResolveInfo
+    ) => Promise<prisma.PageInfo> | prisma.PageInfo
+  }
+  edges: {
+    type: 'GiftEdge'
+    args: {}
     description: string
     list: true
     nullable: false
     resolve: (
-      root: core.RootValue<"User">,
-      args: { where?: ListWhereInput | null, orderBy?: prisma.ListOrderByInput | null, skip?: number | null, after?: string | null, before?: string | null, first?: number | null, last?: number | null }  ,
+      root: core.RootValue<"GiftConnection">,
+      args: {  }  ,
       context: core.GetGen<"context">,
       info?: GraphQLResolveInfo
-    ) => Promise<prisma.List[]> | prisma.List[]
+    ) => Promise<prisma.GiftEdge[]> | prisma.GiftEdge[]
+  }
+  aggregate: {
+    type: 'AggregateGift'
+    args: {}
+    description: string
+    list: undefined
+    nullable: false
+    resolve: (
+      root: core.RootValue<"GiftConnection">,
+      args: {  }  ,
+      context: core.GetGen<"context">,
+      info?: GraphQLResolveInfo
+    ) => Promise<prisma.AggregateGift> | prisma.AggregateGift
+  }
+}
+  
+
+// Types for PageInfo
+
+type PageInfoObject =
+  | PageInfoFields
+  | { name: 'hasNextPage', args?: [] | false, alias?: string  } 
+  | { name: 'hasPreviousPage', args?: [] | false, alias?: string  } 
+  | { name: 'startCursor', args?: [] | false, alias?: string  } 
+  | { name: 'endCursor', args?: [] | false, alias?: string  } 
+
+type PageInfoFields =
+  | 'hasNextPage'
+  | 'hasPreviousPage'
+  | 'startCursor'
+  | 'endCursor'
+
+
+
+  
+
+export interface PageInfoFieldDetails {
+  hasNextPage: {
+    type: 'Boolean'
+    args: {}
+    description: string
+    list: undefined
+    nullable: false
+    resolve: undefined
+  }
+  hasPreviousPage: {
+    type: 'Boolean'
+    args: {}
+    description: string
+    list: undefined
+    nullable: false
+    resolve: undefined
+  }
+  startCursor: {
+    type: 'String'
+    args: {}
+    description: string
+    list: undefined
+    nullable: true
+    resolve: undefined
+  }
+  endCursor: {
+    type: 'String'
+    args: {}
+    description: string
+    list: undefined
+    nullable: true
+    resolve: undefined
+  }
+}
+  
+
+// Types for GiftEdge
+
+type GiftEdgeObject =
+  | GiftEdgeFields
+  | { name: 'node', args?: [] | false, alias?: string  } 
+  | { name: 'cursor', args?: [] | false, alias?: string  } 
+
+type GiftEdgeFields =
+  | 'node'
+  | 'cursor'
+
+
+
+  
+
+export interface GiftEdgeFieldDetails {
+  node: {
+    type: 'Gift'
+    args: {}
+    description: string
+    list: undefined
+    nullable: false
+    resolve: (
+      root: core.RootValue<"GiftEdge">,
+      args: {  }  ,
+      context: core.GetGen<"context">,
+      info?: GraphQLResolveInfo
+    ) => Promise<prisma.Gift> | prisma.Gift
+  }
+  cursor: {
+    type: 'String'
+    args: {}
+    description: string
+    list: undefined
+    nullable: false
+    resolve: undefined
+  }
+}
+  
+
+// Types for AggregateGift
+
+type AggregateGiftObject =
+  | AggregateGiftFields
+  | { name: 'count', args?: [] | false, alias?: string  } 
+
+type AggregateGiftFields =
+  | 'count'
+
+
+
+  
+
+export interface AggregateGiftFieldDetails {
+  count: {
+    type: 'Int'
+    args: {}
+    description: string
+    list: undefined
+    nullable: false
+    resolve: undefined
+  }
+}
+  
+
+// Types for MemberConnection
+
+type MemberConnectionObject =
+  | MemberConnectionFields
+  | { name: 'pageInfo', args?: [] | false, alias?: string  } 
+  | { name: 'edges', args?: [] | false, alias?: string  } 
+  | { name: 'aggregate', args?: [] | false, alias?: string  } 
+
+type MemberConnectionFields =
+  | 'pageInfo'
+  | 'edges'
+  | 'aggregate'
+
+
+
+  
+
+export interface MemberConnectionFieldDetails {
+  pageInfo: {
+    type: 'PageInfo'
+    args: {}
+    description: string
+    list: undefined
+    nullable: false
+    resolve: (
+      root: core.RootValue<"MemberConnection">,
+      args: {  }  ,
+      context: core.GetGen<"context">,
+      info?: GraphQLResolveInfo
+    ) => Promise<prisma.PageInfo> | prisma.PageInfo
+  }
+  edges: {
+    type: 'MemberEdge'
+    args: {}
+    description: string
+    list: true
+    nullable: false
+    resolve: (
+      root: core.RootValue<"MemberConnection">,
+      args: {  }  ,
+      context: core.GetGen<"context">,
+      info?: GraphQLResolveInfo
+    ) => Promise<prisma.MemberEdge[]> | prisma.MemberEdge[]
+  }
+  aggregate: {
+    type: 'AggregateMember'
+    args: {}
+    description: string
+    list: undefined
+    nullable: false
+    resolve: (
+      root: core.RootValue<"MemberConnection">,
+      args: {  }  ,
+      context: core.GetGen<"context">,
+      info?: GraphQLResolveInfo
+    ) => Promise<prisma.AggregateMember> | prisma.AggregateMember
+  }
+}
+  
+
+// Types for MemberEdge
+
+type MemberEdgeObject =
+  | MemberEdgeFields
+  | { name: 'node', args?: [] | false, alias?: string  } 
+  | { name: 'cursor', args?: [] | false, alias?: string  } 
+
+type MemberEdgeFields =
+  | 'node'
+  | 'cursor'
+
+
+
+  
+
+export interface MemberEdgeFieldDetails {
+  node: {
+    type: 'Member'
+    args: {}
+    description: string
+    list: undefined
+    nullable: false
+    resolve: (
+      root: core.RootValue<"MemberEdge">,
+      args: {  }  ,
+      context: core.GetGen<"context">,
+      info?: GraphQLResolveInfo
+    ) => Promise<prisma.Member> | prisma.Member
+  }
+  cursor: {
+    type: 'String'
+    args: {}
+    description: string
+    list: undefined
+    nullable: false
+    resolve: undefined
+  }
+}
+  
+
+// Types for AggregateMember
+
+type AggregateMemberObject =
+  | AggregateMemberFields
+  | { name: 'count', args?: [] | false, alias?: string  } 
+
+type AggregateMemberFields =
+  | 'count'
+
+
+
+  
+
+export interface AggregateMemberFieldDetails {
+  count: {
+    type: 'Int'
+    args: {}
+    description: string
+    list: undefined
+    nullable: false
+    resolve: undefined
   }
 }
   
@@ -474,61 +1152,6 @@ export interface ListConnectionFieldDetails {
       context: core.GetGen<"context">,
       info?: GraphQLResolveInfo
     ) => Promise<prisma.AggregateList> | prisma.AggregateList
-  }
-}
-  
-
-// Types for PageInfo
-
-type PageInfoObject =
-  | PageInfoFields
-  | { name: 'hasNextPage', args?: [] | false, alias?: string  } 
-  | { name: 'hasPreviousPage', args?: [] | false, alias?: string  } 
-  | { name: 'startCursor', args?: [] | false, alias?: string  } 
-  | { name: 'endCursor', args?: [] | false, alias?: string  } 
-
-type PageInfoFields =
-  | 'hasNextPage'
-  | 'hasPreviousPage'
-  | 'startCursor'
-  | 'endCursor'
-
-
-
-  
-
-export interface PageInfoFieldDetails {
-  hasNextPage: {
-    type: 'Boolean'
-    args: {}
-    description: string
-    list: undefined
-    nullable: false
-    resolve: undefined
-  }
-  hasPreviousPage: {
-    type: 'Boolean'
-    args: {}
-    description: string
-    list: undefined
-    nullable: false
-    resolve: undefined
-  }
-  startCursor: {
-    type: 'String'
-    args: {}
-    description: string
-    list: undefined
-    nullable: true
-    resolve: undefined
-  }
-  endCursor: {
-    type: 'String'
-    args: {}
-    description: string
-    list: undefined
-    nullable: true
-    resolve: undefined
   }
 }
   
@@ -727,6 +1350,18 @@ export interface AggregateUserFieldDetails {
 
 type MutationObject =
   | MutationFields
+  | { name: 'createGift', args?: MutationCreateGiftArgs[] | false, alias?: string  } 
+  | { name: 'updateGift', args?: MutationUpdateGiftArgs[] | false, alias?: string  } 
+  | { name: 'updateManyGifts', args?: MutationUpdateManyGiftsArgs[] | false, alias?: string  } 
+  | { name: 'upsertGift', args?: MutationUpsertGiftArgs[] | false, alias?: string  } 
+  | { name: 'deleteGift', args?: MutationDeleteGiftArgs[] | false, alias?: string  } 
+  | { name: 'deleteManyGifts', args?: MutationDeleteManyGiftsArgs[] | false, alias?: string  } 
+  | { name: 'createMember', args?: MutationCreateMemberArgs[] | false, alias?: string  } 
+  | { name: 'updateMember', args?: MutationUpdateMemberArgs[] | false, alias?: string  } 
+  | { name: 'updateManyMembers', args?: MutationUpdateManyMembersArgs[] | false, alias?: string  } 
+  | { name: 'upsertMember', args?: MutationUpsertMemberArgs[] | false, alias?: string  } 
+  | { name: 'deleteMember', args?: MutationDeleteMemberArgs[] | false, alias?: string  } 
+  | { name: 'deleteManyMembers', args?: MutationDeleteManyMembersArgs[] | false, alias?: string  } 
   | { name: 'createList', args?: MutationCreateListArgs[] | false, alias?: string  } 
   | { name: 'updateList', args?: MutationUpdateListArgs[] | false, alias?: string  } 
   | { name: 'updateManyLists', args?: MutationUpdateManyListsArgs[] | false, alias?: string  } 
@@ -741,6 +1376,18 @@ type MutationObject =
   | { name: 'deleteManyUsers', args?: MutationDeleteManyUsersArgs[] | false, alias?: string  } 
 
 type MutationFields =
+  | 'createGift'
+  | 'updateGift'
+  | 'updateManyGifts'
+  | 'upsertGift'
+  | 'deleteGift'
+  | 'deleteManyGifts'
+  | 'createMember'
+  | 'updateMember'
+  | 'updateManyMembers'
+  | 'upsertMember'
+  | 'deleteMember'
+  | 'deleteManyMembers'
   | 'createList'
   | 'updateList'
   | 'updateManyLists'
@@ -755,6 +1402,38 @@ type MutationFields =
   | 'deleteManyUsers'
 
 
+type MutationCreateGiftArgs =
+  | 'data'
+type MutationUpdateGiftArgs =
+  | 'data'
+  | 'where'
+type MutationUpdateManyGiftsArgs =
+  | 'data'
+  | 'where'
+type MutationUpsertGiftArgs =
+  | 'where'
+  | 'create'
+  | 'update'
+type MutationDeleteGiftArgs =
+  | 'where'
+type MutationDeleteManyGiftsArgs =
+  | 'where'
+type MutationCreateMemberArgs =
+  | 'data'
+type MutationUpdateMemberArgs =
+  | 'data'
+  | 'where'
+type MutationUpdateManyMembersArgs =
+  | 'data'
+  | 'where'
+type MutationUpsertMemberArgs =
+  | 'where'
+  | 'create'
+  | 'update'
+type MutationDeleteMemberArgs =
+  | 'where'
+type MutationDeleteManyMembersArgs =
+  | 'where'
 type MutationCreateListArgs =
   | 'data'
 type MutationUpdateListArgs =
@@ -790,6 +1469,162 @@ type MutationDeleteManyUsersArgs =
   
 
 export interface MutationFieldDetails {
+  createGift: {
+    type: 'Gift'
+    args: Record<MutationCreateGiftArgs, core.NexusArgDef<string>>
+    description: string
+    list: undefined
+    nullable: false
+    resolve: (
+      root: core.RootValue<"Mutation">,
+      args: { data: GiftCreateInput }  ,
+      context: core.GetGen<"context">,
+      info?: GraphQLResolveInfo
+    ) => Promise<prisma.Gift> | prisma.Gift
+  }
+  updateGift: {
+    type: 'Gift'
+    args: Record<MutationUpdateGiftArgs, core.NexusArgDef<string>>
+    description: string
+    list: undefined
+    nullable: true
+    resolve: (
+      root: core.RootValue<"Mutation">,
+      args: { data: GiftUpdateInput, where: GiftWhereUniqueInput }  ,
+      context: core.GetGen<"context">,
+      info?: GraphQLResolveInfo
+    ) => Promise<prisma.Gift | null> | prisma.Gift | null
+  }
+  updateManyGifts: {
+    type: 'BatchPayload'
+    args: Record<MutationUpdateManyGiftsArgs, core.NexusArgDef<string>>
+    description: string
+    list: undefined
+    nullable: false
+    resolve: (
+      root: core.RootValue<"Mutation">,
+      args: { data: GiftUpdateManyMutationInput, where?: GiftWhereInput | null }  ,
+      context: core.GetGen<"context">,
+      info?: GraphQLResolveInfo
+    ) => Promise<prisma.BatchPayload> | prisma.BatchPayload
+  }
+  upsertGift: {
+    type: 'Gift'
+    args: Record<MutationUpsertGiftArgs, core.NexusArgDef<string>>
+    description: string
+    list: undefined
+    nullable: false
+    resolve: (
+      root: core.RootValue<"Mutation">,
+      args: { where: GiftWhereUniqueInput, create: GiftCreateInput, update: GiftUpdateInput }  ,
+      context: core.GetGen<"context">,
+      info?: GraphQLResolveInfo
+    ) => Promise<prisma.Gift> | prisma.Gift
+  }
+  deleteGift: {
+    type: 'Gift'
+    args: Record<MutationDeleteGiftArgs, core.NexusArgDef<string>>
+    description: string
+    list: undefined
+    nullable: true
+    resolve: (
+      root: core.RootValue<"Mutation">,
+      args: { where: GiftWhereUniqueInput }  ,
+      context: core.GetGen<"context">,
+      info?: GraphQLResolveInfo
+    ) => Promise<prisma.Gift | null> | prisma.Gift | null
+  }
+  deleteManyGifts: {
+    type: 'BatchPayload'
+    args: Record<MutationDeleteManyGiftsArgs, core.NexusArgDef<string>>
+    description: string
+    list: undefined
+    nullable: false
+    resolve: (
+      root: core.RootValue<"Mutation">,
+      args: { where?: GiftWhereInput | null }  ,
+      context: core.GetGen<"context">,
+      info?: GraphQLResolveInfo
+    ) => Promise<prisma.BatchPayload> | prisma.BatchPayload
+  }
+  createMember: {
+    type: 'Member'
+    args: Record<MutationCreateMemberArgs, core.NexusArgDef<string>>
+    description: string
+    list: undefined
+    nullable: false
+    resolve: (
+      root: core.RootValue<"Mutation">,
+      args: { data: MemberCreateInput }  ,
+      context: core.GetGen<"context">,
+      info?: GraphQLResolveInfo
+    ) => Promise<prisma.Member> | prisma.Member
+  }
+  updateMember: {
+    type: 'Member'
+    args: Record<MutationUpdateMemberArgs, core.NexusArgDef<string>>
+    description: string
+    list: undefined
+    nullable: true
+    resolve: (
+      root: core.RootValue<"Mutation">,
+      args: { data: MemberUpdateInput, where: MemberWhereUniqueInput }  ,
+      context: core.GetGen<"context">,
+      info?: GraphQLResolveInfo
+    ) => Promise<prisma.Member | null> | prisma.Member | null
+  }
+  updateManyMembers: {
+    type: 'BatchPayload'
+    args: Record<MutationUpdateManyMembersArgs, core.NexusArgDef<string>>
+    description: string
+    list: undefined
+    nullable: false
+    resolve: (
+      root: core.RootValue<"Mutation">,
+      args: { data: MemberUpdateManyMutationInput, where?: MemberWhereInput | null }  ,
+      context: core.GetGen<"context">,
+      info?: GraphQLResolveInfo
+    ) => Promise<prisma.BatchPayload> | prisma.BatchPayload
+  }
+  upsertMember: {
+    type: 'Member'
+    args: Record<MutationUpsertMemberArgs, core.NexusArgDef<string>>
+    description: string
+    list: undefined
+    nullable: false
+    resolve: (
+      root: core.RootValue<"Mutation">,
+      args: { where: MemberWhereUniqueInput, create: MemberCreateInput, update: MemberUpdateInput }  ,
+      context: core.GetGen<"context">,
+      info?: GraphQLResolveInfo
+    ) => Promise<prisma.Member> | prisma.Member
+  }
+  deleteMember: {
+    type: 'Member'
+    args: Record<MutationDeleteMemberArgs, core.NexusArgDef<string>>
+    description: string
+    list: undefined
+    nullable: true
+    resolve: (
+      root: core.RootValue<"Mutation">,
+      args: { where: MemberWhereUniqueInput }  ,
+      context: core.GetGen<"context">,
+      info?: GraphQLResolveInfo
+    ) => Promise<prisma.Member | null> | prisma.Member | null
+  }
+  deleteManyMembers: {
+    type: 'BatchPayload'
+    args: Record<MutationDeleteManyMembersArgs, core.NexusArgDef<string>>
+    description: string
+    list: undefined
+    nullable: false
+    resolve: (
+      root: core.RootValue<"Mutation">,
+      args: { where?: MemberWhereInput | null }  ,
+      context: core.GetGen<"context">,
+      info?: GraphQLResolveInfo
+    ) => Promise<prisma.BatchPayload> | prisma.BatchPayload
+  }
   createList: {
     type: 'List'
     args: Record<MutationCreateListArgs, core.NexusArgDef<string>>
@@ -978,14 +1813,22 @@ export interface BatchPayloadFieldDetails {
 
 type SubscriptionObject =
   | SubscriptionFields
+  | { name: 'gift', args?: SubscriptionGiftArgs[] | false, alias?: string  } 
+  | { name: 'member', args?: SubscriptionMemberArgs[] | false, alias?: string  } 
   | { name: 'list', args?: SubscriptionListArgs[] | false, alias?: string  } 
   | { name: 'user', args?: SubscriptionUserArgs[] | false, alias?: string  } 
 
 type SubscriptionFields =
+  | 'gift'
+  | 'member'
   | 'list'
   | 'user'
 
 
+type SubscriptionGiftArgs =
+  | 'where'
+type SubscriptionMemberArgs =
+  | 'where'
 type SubscriptionListArgs =
   | 'where'
 type SubscriptionUserArgs =
@@ -993,6 +1836,32 @@ type SubscriptionUserArgs =
   
 
 export interface SubscriptionFieldDetails {
+  gift: {
+    type: 'GiftSubscriptionPayload'
+    args: Record<SubscriptionGiftArgs, core.NexusArgDef<string>>
+    description: string
+    list: undefined
+    nullable: true
+    resolve: (
+      root: core.RootValue<"Subscription">,
+      args: { where?: GiftSubscriptionWhereInput | null }  ,
+      context: core.GetGen<"context">,
+      info?: GraphQLResolveInfo
+    ) => Promise<prisma.GiftSubscriptionPayload | null> | prisma.GiftSubscriptionPayload | null
+  }
+  member: {
+    type: 'MemberSubscriptionPayload'
+    args: Record<SubscriptionMemberArgs, core.NexusArgDef<string>>
+    description: string
+    list: undefined
+    nullable: true
+    resolve: (
+      root: core.RootValue<"Subscription">,
+      args: { where?: MemberSubscriptionWhereInput | null }  ,
+      context: core.GetGen<"context">,
+      info?: GraphQLResolveInfo
+    ) => Promise<prisma.MemberSubscriptionPayload | null> | prisma.MemberSubscriptionPayload | null
+  }
   list: {
     type: 'ListSubscriptionPayload'
     args: Record<SubscriptionListArgs, core.NexusArgDef<string>>
@@ -1018,6 +1887,231 @@ export interface SubscriptionFieldDetails {
       context: core.GetGen<"context">,
       info?: GraphQLResolveInfo
     ) => Promise<prisma.UserSubscriptionPayload | null> | prisma.UserSubscriptionPayload | null
+  }
+}
+  
+
+// Types for GiftSubscriptionPayload
+
+type GiftSubscriptionPayloadObject =
+  | GiftSubscriptionPayloadFields
+  | { name: 'mutation', args?: [] | false, alias?: string  } 
+  | { name: 'node', args?: [] | false, alias?: string  } 
+  | { name: 'updatedFields', args?: [] | false, alias?: string  } 
+  | { name: 'previousValues', args?: [] | false, alias?: string  } 
+
+type GiftSubscriptionPayloadFields =
+  | 'mutation'
+  | 'node'
+  | 'updatedFields'
+  | 'previousValues'
+
+
+
+  
+
+export interface GiftSubscriptionPayloadFieldDetails {
+  mutation: {
+    type: 'MutationType'
+    args: {}
+    description: string
+    list: undefined
+    nullable: false
+    resolve: (
+      root: core.RootValue<"GiftSubscriptionPayload">,
+      args: {  }  ,
+      context: core.GetGen<"context">,
+      info?: GraphQLResolveInfo
+    ) => Promise<prisma.MutationType> | prisma.MutationType
+  }
+  node: {
+    type: 'Gift'
+    args: {}
+    description: string
+    list: undefined
+    nullable: true
+    resolve: (
+      root: core.RootValue<"GiftSubscriptionPayload">,
+      args: {  }  ,
+      context: core.GetGen<"context">,
+      info?: GraphQLResolveInfo
+    ) => Promise<prisma.Gift | null> | prisma.Gift | null
+  }
+  updatedFields: {
+    type: 'String'
+    args: {}
+    description: string
+    list: true
+    nullable: false
+    resolve: undefined
+  }
+  previousValues: {
+    type: 'GiftPreviousValues'
+    args: {}
+    description: string
+    list: undefined
+    nullable: true
+    resolve: (
+      root: core.RootValue<"GiftSubscriptionPayload">,
+      args: {  }  ,
+      context: core.GetGen<"context">,
+      info?: GraphQLResolveInfo
+    ) => Promise<prisma.GiftPreviousValues | null> | prisma.GiftPreviousValues | null
+  }
+}
+  
+
+// Types for GiftPreviousValues
+
+type GiftPreviousValuesObject =
+  | GiftPreviousValuesFields
+  | { name: 'id', args?: [] | false, alias?: string  } 
+  | { name: 'name', args?: [] | false, alias?: string  } 
+  | { name: 'link', args?: [] | false, alias?: string  } 
+
+type GiftPreviousValuesFields =
+  | 'id'
+  | 'name'
+  | 'link'
+
+
+
+  
+
+export interface GiftPreviousValuesFieldDetails {
+  id: {
+    type: 'ID'
+    args: {}
+    description: string
+    list: undefined
+    nullable: false
+    resolve: undefined
+  }
+  name: {
+    type: 'String'
+    args: {}
+    description: string
+    list: undefined
+    nullable: false
+    resolve: undefined
+  }
+  link: {
+    type: 'String'
+    args: {}
+    description: string
+    list: undefined
+    nullable: false
+    resolve: undefined
+  }
+}
+  
+
+// Types for MemberSubscriptionPayload
+
+type MemberSubscriptionPayloadObject =
+  | MemberSubscriptionPayloadFields
+  | { name: 'mutation', args?: [] | false, alias?: string  } 
+  | { name: 'node', args?: [] | false, alias?: string  } 
+  | { name: 'updatedFields', args?: [] | false, alias?: string  } 
+  | { name: 'previousValues', args?: [] | false, alias?: string  } 
+
+type MemberSubscriptionPayloadFields =
+  | 'mutation'
+  | 'node'
+  | 'updatedFields'
+  | 'previousValues'
+
+
+
+  
+
+export interface MemberSubscriptionPayloadFieldDetails {
+  mutation: {
+    type: 'MutationType'
+    args: {}
+    description: string
+    list: undefined
+    nullable: false
+    resolve: (
+      root: core.RootValue<"MemberSubscriptionPayload">,
+      args: {  }  ,
+      context: core.GetGen<"context">,
+      info?: GraphQLResolveInfo
+    ) => Promise<prisma.MutationType> | prisma.MutationType
+  }
+  node: {
+    type: 'Member'
+    args: {}
+    description: string
+    list: undefined
+    nullable: true
+    resolve: (
+      root: core.RootValue<"MemberSubscriptionPayload">,
+      args: {  }  ,
+      context: core.GetGen<"context">,
+      info?: GraphQLResolveInfo
+    ) => Promise<prisma.Member | null> | prisma.Member | null
+  }
+  updatedFields: {
+    type: 'String'
+    args: {}
+    description: string
+    list: true
+    nullable: false
+    resolve: undefined
+  }
+  previousValues: {
+    type: 'MemberPreviousValues'
+    args: {}
+    description: string
+    list: undefined
+    nullable: true
+    resolve: (
+      root: core.RootValue<"MemberSubscriptionPayload">,
+      args: {  }  ,
+      context: core.GetGen<"context">,
+      info?: GraphQLResolveInfo
+    ) => Promise<prisma.MemberPreviousValues | null> | prisma.MemberPreviousValues | null
+  }
+}
+  
+
+// Types for MemberPreviousValues
+
+type MemberPreviousValuesObject =
+  | MemberPreviousValuesFields
+  | { name: 'id', args?: [] | false, alias?: string  } 
+  | { name: 'status', args?: [] | false, alias?: string  } 
+
+type MemberPreviousValuesFields =
+  | 'id'
+  | 'status'
+
+
+
+  
+
+export interface MemberPreviousValuesFieldDetails {
+  id: {
+    type: 'ID'
+    args: {}
+    description: string
+    list: undefined
+    nullable: false
+    resolve: undefined
+  }
+  status: {
+    type: 'MemberShip'
+    args: {}
+    description: string
+    list: undefined
+    nullable: true
+    resolve: (
+      root: core.RootValue<"MemberPreviousValues">,
+      args: {  }  ,
+      context: core.GetGen<"context">,
+      info?: GraphQLResolveInfo
+    ) => Promise<prisma.MemberShip | null> | prisma.MemberShip | null
   }
 }
   
@@ -1098,10 +2192,24 @@ type ListPreviousValuesObject =
   | ListPreviousValuesFields
   | { name: 'id', args?: [] | false, alias?: string  } 
   | { name: 'name', args?: [] | false, alias?: string  } 
+  | { name: 'description', args?: [] | false, alias?: string  } 
+  | { name: 'familyName', args?: [] | false, alias?: string  } 
+  | { name: 'babyGenre', args?: [] | false, alias?: string  } 
+  | { name: 'babyName', args?: [] | false, alias?: string  } 
+  | { name: 'birthDate', args?: [] | false, alias?: string  } 
+  | { name: 'isActivated', args?: [] | false, alias?: string  } 
+  | { name: 'isOpen', args?: [] | false, alias?: string  } 
 
 type ListPreviousValuesFields =
   | 'id'
   | 'name'
+  | 'description'
+  | 'familyName'
+  | 'babyGenre'
+  | 'babyName'
+  | 'birthDate'
+  | 'isActivated'
+  | 'isOpen'
 
 
 
@@ -1118,6 +2226,67 @@ export interface ListPreviousValuesFieldDetails {
   }
   name: {
     type: 'String'
+    args: {}
+    description: string
+    list: undefined
+    nullable: false
+    resolve: undefined
+  }
+  description: {
+    type: 'String'
+    args: {}
+    description: string
+    list: undefined
+    nullable: true
+    resolve: undefined
+  }
+  familyName: {
+    type: 'String'
+    args: {}
+    description: string
+    list: undefined
+    nullable: true
+    resolve: undefined
+  }
+  babyGenre: {
+    type: 'Genre'
+    args: {}
+    description: string
+    list: undefined
+    nullable: true
+    resolve: (
+      root: core.RootValue<"ListPreviousValues">,
+      args: {  }  ,
+      context: core.GetGen<"context">,
+      info?: GraphQLResolveInfo
+    ) => Promise<prisma.Genre | null> | prisma.Genre | null
+  }
+  babyName: {
+    type: 'String'
+    args: {}
+    description: string
+    list: undefined
+    nullable: true
+    resolve: undefined
+  }
+  birthDate: {
+    type: 'DateTime'
+    args: {}
+    description: string
+    list: undefined
+    nullable: true
+    resolve: undefined
+  }
+  isActivated: {
+    type: 'Boolean'
+    args: {}
+    description: string
+    list: undefined
+    nullable: false
+    resolve: undefined
+  }
+  isOpen: {
+    type: 'Boolean'
     args: {}
     description: string
     list: undefined
@@ -1313,14 +2482,14 @@ export interface UserPreviousValuesFieldDetails {
   
 
 
-export interface ListWhereUniqueInput {
+export interface GiftWhereUniqueInput {
   id?: string | null
 }
-export type ListWhereUniqueInputInputObject =
-  | Extract<keyof ListWhereUniqueInput, string>
+export type GiftWhereUniqueInputInputObject =
+  | Extract<keyof GiftWhereUniqueInput, string>
   | { name: 'id', alias?: string  } 
   
-export interface ListWhereInput {
+export interface MemberWhereInput {
   id?: string | null
   id_not?: string | null
   id_in?: string[]
@@ -1335,27 +2504,17 @@ export interface ListWhereInput {
   id_not_starts_with?: string | null
   id_ends_with?: string | null
   id_not_ends_with?: string | null
-  name?: string | null
-  name_not?: string | null
-  name_in?: string[]
-  name_not_in?: string[]
-  name_lt?: string | null
-  name_lte?: string | null
-  name_gt?: string | null
-  name_gte?: string | null
-  name_contains?: string | null
-  name_not_contains?: string | null
-  name_starts_with?: string | null
-  name_not_starts_with?: string | null
-  name_ends_with?: string | null
-  name_not_ends_with?: string | null
-  author?: UserWhereInput | null
-  AND?: ListWhereInput[]
-  OR?: ListWhereInput[]
-  NOT?: ListWhereInput[]
+  user?: UserWhereInput | null
+  status?: prisma.MemberShip | null
+  status_not?: prisma.MemberShip | null
+  status_in?: prisma.MemberShip[]
+  status_not_in?: prisma.MemberShip[]
+  AND?: MemberWhereInput[]
+  OR?: MemberWhereInput[]
+  NOT?: MemberWhereInput[]
 }
-export type ListWhereInputInputObject =
-  | Extract<keyof ListWhereInput, string>
+export type MemberWhereInputInputObject =
+  | Extract<keyof MemberWhereInput, string>
   | { name: 'id', alias?: string  } 
   | { name: 'id_not', alias?: string  } 
   | { name: 'id_in', alias?: string  } 
@@ -1370,21 +2529,11 @@ export type ListWhereInputInputObject =
   | { name: 'id_not_starts_with', alias?: string  } 
   | { name: 'id_ends_with', alias?: string  } 
   | { name: 'id_not_ends_with', alias?: string  } 
-  | { name: 'name', alias?: string  } 
-  | { name: 'name_not', alias?: string  } 
-  | { name: 'name_in', alias?: string  } 
-  | { name: 'name_not_in', alias?: string  } 
-  | { name: 'name_lt', alias?: string  } 
-  | { name: 'name_lte', alias?: string  } 
-  | { name: 'name_gt', alias?: string  } 
-  | { name: 'name_gte', alias?: string  } 
-  | { name: 'name_contains', alias?: string  } 
-  | { name: 'name_not_contains', alias?: string  } 
-  | { name: 'name_starts_with', alias?: string  } 
-  | { name: 'name_not_starts_with', alias?: string  } 
-  | { name: 'name_ends_with', alias?: string  } 
-  | { name: 'name_not_ends_with', alias?: string  } 
-  | { name: 'author', alias?: string  } 
+  | { name: 'user', alias?: string  } 
+  | { name: 'status', alias?: string  } 
+  | { name: 'status_not', alias?: string  } 
+  | { name: 'status_in', alias?: string  } 
+  | { name: 'status_not_in', alias?: string  } 
   | { name: 'AND', alias?: string  } 
   | { name: 'OR', alias?: string  } 
   | { name: 'NOT', alias?: string  } 
@@ -1484,9 +2633,6 @@ export interface UserWhereInput {
   genre_not?: prisma.Genre | null
   genre_in?: prisma.Genre[]
   genre_not_in?: prisma.Genre[]
-  list_every?: ListWhereInput | null
-  list_some?: ListWhereInput | null
-  list_none?: ListWhereInput | null
   AND?: UserWhereInput[]
   OR?: UserWhereInput[]
   NOT?: UserWhereInput[]
@@ -1587,225 +2733,11 @@ export type UserWhereInputInputObject =
   | { name: 'genre_not', alias?: string  } 
   | { name: 'genre_in', alias?: string  } 
   | { name: 'genre_not_in', alias?: string  } 
-  | { name: 'list_every', alias?: string  } 
-  | { name: 'list_some', alias?: string  } 
-  | { name: 'list_none', alias?: string  } 
   | { name: 'AND', alias?: string  } 
   | { name: 'OR', alias?: string  } 
   | { name: 'NOT', alias?: string  } 
   
-export interface UserWhereUniqueInput {
-  id?: string | null
-  email?: string | null
-}
-export type UserWhereUniqueInputInputObject =
-  | Extract<keyof UserWhereUniqueInput, string>
-  | { name: 'id', alias?: string  } 
-  | { name: 'email', alias?: string  } 
-  
-export interface ListCreateInput {
-  id?: string | null
-  name?: string
-  author?: UserCreateOneWithoutListInput
-}
-export type ListCreateInputInputObject =
-  | Extract<keyof ListCreateInput, string>
-  | { name: 'id', alias?: string  } 
-  | { name: 'name', alias?: string  } 
-  | { name: 'author', alias?: string  } 
-  
-export interface UserCreateOneWithoutListInput {
-  create?: UserCreateWithoutListInput | null
-  connect?: UserWhereUniqueInput | null
-}
-export type UserCreateOneWithoutListInputInputObject =
-  | Extract<keyof UserCreateOneWithoutListInput, string>
-  | { name: 'create', alias?: string  } 
-  | { name: 'connect', alias?: string  } 
-  
-export interface UserCreateWithoutListInput {
-  id?: string | null
-  firstName?: string
-  lastName?: string
-  email?: string
-  password?: string
-  role?: prisma.Role | null
-  genre?: prisma.Genre
-}
-export type UserCreateWithoutListInputInputObject =
-  | Extract<keyof UserCreateWithoutListInput, string>
-  | { name: 'id', alias?: string  } 
-  | { name: 'firstName', alias?: string  } 
-  | { name: 'lastName', alias?: string  } 
-  | { name: 'email', alias?: string  } 
-  | { name: 'password', alias?: string  } 
-  | { name: 'role', alias?: string  } 
-  | { name: 'genre', alias?: string  } 
-  
-export interface ListUpdateInput {
-  name?: string | null
-  author?: UserUpdateOneRequiredWithoutListInput | null
-}
-export type ListUpdateInputInputObject =
-  | Extract<keyof ListUpdateInput, string>
-  | { name: 'name', alias?: string  } 
-  | { name: 'author', alias?: string  } 
-  
-export interface UserUpdateOneRequiredWithoutListInput {
-  create?: UserCreateWithoutListInput | null
-  update?: UserUpdateWithoutListDataInput | null
-  upsert?: UserUpsertWithoutListInput | null
-  connect?: UserWhereUniqueInput | null
-}
-export type UserUpdateOneRequiredWithoutListInputInputObject =
-  | Extract<keyof UserUpdateOneRequiredWithoutListInput, string>
-  | { name: 'create', alias?: string  } 
-  | { name: 'update', alias?: string  } 
-  | { name: 'upsert', alias?: string  } 
-  | { name: 'connect', alias?: string  } 
-  
-export interface UserUpdateWithoutListDataInput {
-  firstName?: string | null
-  lastName?: string | null
-  email?: string | null
-  password?: string | null
-  role?: prisma.Role | null
-  genre?: prisma.Genre | null
-}
-export type UserUpdateWithoutListDataInputInputObject =
-  | Extract<keyof UserUpdateWithoutListDataInput, string>
-  | { name: 'firstName', alias?: string  } 
-  | { name: 'lastName', alias?: string  } 
-  | { name: 'email', alias?: string  } 
-  | { name: 'password', alias?: string  } 
-  | { name: 'role', alias?: string  } 
-  | { name: 'genre', alias?: string  } 
-  
-export interface UserUpsertWithoutListInput {
-  update?: UserUpdateWithoutListDataInput
-  create?: UserCreateWithoutListInput
-}
-export type UserUpsertWithoutListInputInputObject =
-  | Extract<keyof UserUpsertWithoutListInput, string>
-  | { name: 'update', alias?: string  } 
-  | { name: 'create', alias?: string  } 
-  
-export interface ListUpdateManyMutationInput {
-  name?: string | null
-}
-export type ListUpdateManyMutationInputInputObject =
-  | Extract<keyof ListUpdateManyMutationInput, string>
-  | { name: 'name', alias?: string  } 
-  
-export interface UserCreateInput {
-  id?: string | null
-  firstName?: string
-  lastName?: string
-  email?: string
-  password?: string
-  role?: prisma.Role | null
-  genre?: prisma.Genre
-  list?: ListCreateManyWithoutAuthorInput | null
-}
-export type UserCreateInputInputObject =
-  | Extract<keyof UserCreateInput, string>
-  | { name: 'id', alias?: string  } 
-  | { name: 'firstName', alias?: string  } 
-  | { name: 'lastName', alias?: string  } 
-  | { name: 'email', alias?: string  } 
-  | { name: 'password', alias?: string  } 
-  | { name: 'role', alias?: string  } 
-  | { name: 'genre', alias?: string  } 
-  | { name: 'list', alias?: string  } 
-  
-export interface ListCreateManyWithoutAuthorInput {
-  create?: ListCreateWithoutAuthorInput[]
-  connect?: ListWhereUniqueInput[]
-}
-export type ListCreateManyWithoutAuthorInputInputObject =
-  | Extract<keyof ListCreateManyWithoutAuthorInput, string>
-  | { name: 'create', alias?: string  } 
-  | { name: 'connect', alias?: string  } 
-  
-export interface ListCreateWithoutAuthorInput {
-  id?: string | null
-  name?: string
-}
-export type ListCreateWithoutAuthorInputInputObject =
-  | Extract<keyof ListCreateWithoutAuthorInput, string>
-  | { name: 'id', alias?: string  } 
-  | { name: 'name', alias?: string  } 
-  
-export interface UserUpdateInput {
-  firstName?: string | null
-  lastName?: string | null
-  email?: string | null
-  password?: string | null
-  role?: prisma.Role | null
-  genre?: prisma.Genre | null
-  list?: ListUpdateManyWithoutAuthorInput | null
-}
-export type UserUpdateInputInputObject =
-  | Extract<keyof UserUpdateInput, string>
-  | { name: 'firstName', alias?: string  } 
-  | { name: 'lastName', alias?: string  } 
-  | { name: 'email', alias?: string  } 
-  | { name: 'password', alias?: string  } 
-  | { name: 'role', alias?: string  } 
-  | { name: 'genre', alias?: string  } 
-  | { name: 'list', alias?: string  } 
-  
-export interface ListUpdateManyWithoutAuthorInput {
-  create?: ListCreateWithoutAuthorInput[]
-  delete?: ListWhereUniqueInput[]
-  connect?: ListWhereUniqueInput[]
-  set?: ListWhereUniqueInput[]
-  disconnect?: ListWhereUniqueInput[]
-  update?: ListUpdateWithWhereUniqueWithoutAuthorInput[]
-  upsert?: ListUpsertWithWhereUniqueWithoutAuthorInput[]
-  deleteMany?: ListScalarWhereInput[]
-  updateMany?: ListUpdateManyWithWhereNestedInput[]
-}
-export type ListUpdateManyWithoutAuthorInputInputObject =
-  | Extract<keyof ListUpdateManyWithoutAuthorInput, string>
-  | { name: 'create', alias?: string  } 
-  | { name: 'delete', alias?: string  } 
-  | { name: 'connect', alias?: string  } 
-  | { name: 'set', alias?: string  } 
-  | { name: 'disconnect', alias?: string  } 
-  | { name: 'update', alias?: string  } 
-  | { name: 'upsert', alias?: string  } 
-  | { name: 'deleteMany', alias?: string  } 
-  | { name: 'updateMany', alias?: string  } 
-  
-export interface ListUpdateWithWhereUniqueWithoutAuthorInput {
-  where?: ListWhereUniqueInput
-  data?: ListUpdateWithoutAuthorDataInput
-}
-export type ListUpdateWithWhereUniqueWithoutAuthorInputInputObject =
-  | Extract<keyof ListUpdateWithWhereUniqueWithoutAuthorInput, string>
-  | { name: 'where', alias?: string  } 
-  | { name: 'data', alias?: string  } 
-  
-export interface ListUpdateWithoutAuthorDataInput {
-  name?: string | null
-}
-export type ListUpdateWithoutAuthorDataInputInputObject =
-  | Extract<keyof ListUpdateWithoutAuthorDataInput, string>
-  | { name: 'name', alias?: string  } 
-  
-export interface ListUpsertWithWhereUniqueWithoutAuthorInput {
-  where?: ListWhereUniqueInput
-  update?: ListUpdateWithoutAuthorDataInput
-  create?: ListCreateWithoutAuthorInput
-}
-export type ListUpsertWithWhereUniqueWithoutAuthorInputInputObject =
-  | Extract<keyof ListUpsertWithWhereUniqueWithoutAuthorInput, string>
-  | { name: 'where', alias?: string  } 
-  | { name: 'update', alias?: string  } 
-  | { name: 'create', alias?: string  } 
-  
-export interface ListScalarWhereInput {
+export interface GiftWhereInput {
   id?: string | null
   id_not?: string | null
   id_in?: string[]
@@ -1834,12 +2766,28 @@ export interface ListScalarWhereInput {
   name_not_starts_with?: string | null
   name_ends_with?: string | null
   name_not_ends_with?: string | null
-  AND?: ListScalarWhereInput[]
-  OR?: ListScalarWhereInput[]
-  NOT?: ListScalarWhereInput[]
+  link?: string | null
+  link_not?: string | null
+  link_in?: string[]
+  link_not_in?: string[]
+  link_lt?: string | null
+  link_lte?: string | null
+  link_gt?: string | null
+  link_gte?: string | null
+  link_contains?: string | null
+  link_not_contains?: string | null
+  link_starts_with?: string | null
+  link_not_starts_with?: string | null
+  link_ends_with?: string | null
+  link_not_ends_with?: string | null
+  list?: ListWhereInput | null
+  owner?: UserWhereInput | null
+  AND?: GiftWhereInput[]
+  OR?: GiftWhereInput[]
+  NOT?: GiftWhereInput[]
 }
-export type ListScalarWhereInputInputObject =
-  | Extract<keyof ListScalarWhereInput, string>
+export type GiftWhereInputInputObject =
+  | Extract<keyof GiftWhereInput, string>
   | { name: 'id', alias?: string  } 
   | { name: 'id_not', alias?: string  } 
   | { name: 'id_in', alias?: string  } 
@@ -1868,25 +2816,657 @@ export type ListScalarWhereInputInputObject =
   | { name: 'name_not_starts_with', alias?: string  } 
   | { name: 'name_ends_with', alias?: string  } 
   | { name: 'name_not_ends_with', alias?: string  } 
+  | { name: 'link', alias?: string  } 
+  | { name: 'link_not', alias?: string  } 
+  | { name: 'link_in', alias?: string  } 
+  | { name: 'link_not_in', alias?: string  } 
+  | { name: 'link_lt', alias?: string  } 
+  | { name: 'link_lte', alias?: string  } 
+  | { name: 'link_gt', alias?: string  } 
+  | { name: 'link_gte', alias?: string  } 
+  | { name: 'link_contains', alias?: string  } 
+  | { name: 'link_not_contains', alias?: string  } 
+  | { name: 'link_starts_with', alias?: string  } 
+  | { name: 'link_not_starts_with', alias?: string  } 
+  | { name: 'link_ends_with', alias?: string  } 
+  | { name: 'link_not_ends_with', alias?: string  } 
+  | { name: 'list', alias?: string  } 
+  | { name: 'owner', alias?: string  } 
   | { name: 'AND', alias?: string  } 
   | { name: 'OR', alias?: string  } 
   | { name: 'NOT', alias?: string  } 
   
-export interface ListUpdateManyWithWhereNestedInput {
-  where?: ListScalarWhereInput
-  data?: ListUpdateManyDataInput
+export interface ListWhereInput {
+  id?: string | null
+  id_not?: string | null
+  id_in?: string[]
+  id_not_in?: string[]
+  id_lt?: string | null
+  id_lte?: string | null
+  id_gt?: string | null
+  id_gte?: string | null
+  id_contains?: string | null
+  id_not_contains?: string | null
+  id_starts_with?: string | null
+  id_not_starts_with?: string | null
+  id_ends_with?: string | null
+  id_not_ends_with?: string | null
+  name?: string | null
+  name_not?: string | null
+  name_in?: string[]
+  name_not_in?: string[]
+  name_lt?: string | null
+  name_lte?: string | null
+  name_gt?: string | null
+  name_gte?: string | null
+  name_contains?: string | null
+  name_not_contains?: string | null
+  name_starts_with?: string | null
+  name_not_starts_with?: string | null
+  name_ends_with?: string | null
+  name_not_ends_with?: string | null
+  description?: string | null
+  description_not?: string | null
+  description_in?: string[]
+  description_not_in?: string[]
+  description_lt?: string | null
+  description_lte?: string | null
+  description_gt?: string | null
+  description_gte?: string | null
+  description_contains?: string | null
+  description_not_contains?: string | null
+  description_starts_with?: string | null
+  description_not_starts_with?: string | null
+  description_ends_with?: string | null
+  description_not_ends_with?: string | null
+  familyName?: string | null
+  familyName_not?: string | null
+  familyName_in?: string[]
+  familyName_not_in?: string[]
+  familyName_lt?: string | null
+  familyName_lte?: string | null
+  familyName_gt?: string | null
+  familyName_gte?: string | null
+  familyName_contains?: string | null
+  familyName_not_contains?: string | null
+  familyName_starts_with?: string | null
+  familyName_not_starts_with?: string | null
+  familyName_ends_with?: string | null
+  familyName_not_ends_with?: string | null
+  babyGenre?: prisma.Genre | null
+  babyGenre_not?: prisma.Genre | null
+  babyGenre_in?: prisma.Genre[]
+  babyGenre_not_in?: prisma.Genre[]
+  babyName?: string | null
+  babyName_not?: string | null
+  babyName_in?: string[]
+  babyName_not_in?: string[]
+  babyName_lt?: string | null
+  babyName_lte?: string | null
+  babyName_gt?: string | null
+  babyName_gte?: string | null
+  babyName_contains?: string | null
+  babyName_not_contains?: string | null
+  babyName_starts_with?: string | null
+  babyName_not_starts_with?: string | null
+  babyName_ends_with?: string | null
+  babyName_not_ends_with?: string | null
+  birthDate?: string | null
+  birthDate_not?: string | null
+  birthDate_in?: string[]
+  birthDate_not_in?: string[]
+  birthDate_lt?: string | null
+  birthDate_lte?: string | null
+  birthDate_gt?: string | null
+  birthDate_gte?: string | null
+  author?: UserWhereInput | null
+  members_every?: MemberWhereInput | null
+  members_some?: MemberWhereInput | null
+  members_none?: MemberWhereInput | null
+  isActivated?: boolean | null
+  isActivated_not?: boolean | null
+  isOpen?: boolean | null
+  isOpen_not?: boolean | null
+  AND?: ListWhereInput[]
+  OR?: ListWhereInput[]
+  NOT?: ListWhereInput[]
 }
-export type ListUpdateManyWithWhereNestedInputInputObject =
-  | Extract<keyof ListUpdateManyWithWhereNestedInput, string>
+export type ListWhereInputInputObject =
+  | Extract<keyof ListWhereInput, string>
+  | { name: 'id', alias?: string  } 
+  | { name: 'id_not', alias?: string  } 
+  | { name: 'id_in', alias?: string  } 
+  | { name: 'id_not_in', alias?: string  } 
+  | { name: 'id_lt', alias?: string  } 
+  | { name: 'id_lte', alias?: string  } 
+  | { name: 'id_gt', alias?: string  } 
+  | { name: 'id_gte', alias?: string  } 
+  | { name: 'id_contains', alias?: string  } 
+  | { name: 'id_not_contains', alias?: string  } 
+  | { name: 'id_starts_with', alias?: string  } 
+  | { name: 'id_not_starts_with', alias?: string  } 
+  | { name: 'id_ends_with', alias?: string  } 
+  | { name: 'id_not_ends_with', alias?: string  } 
+  | { name: 'name', alias?: string  } 
+  | { name: 'name_not', alias?: string  } 
+  | { name: 'name_in', alias?: string  } 
+  | { name: 'name_not_in', alias?: string  } 
+  | { name: 'name_lt', alias?: string  } 
+  | { name: 'name_lte', alias?: string  } 
+  | { name: 'name_gt', alias?: string  } 
+  | { name: 'name_gte', alias?: string  } 
+  | { name: 'name_contains', alias?: string  } 
+  | { name: 'name_not_contains', alias?: string  } 
+  | { name: 'name_starts_with', alias?: string  } 
+  | { name: 'name_not_starts_with', alias?: string  } 
+  | { name: 'name_ends_with', alias?: string  } 
+  | { name: 'name_not_ends_with', alias?: string  } 
+  | { name: 'description', alias?: string  } 
+  | { name: 'description_not', alias?: string  } 
+  | { name: 'description_in', alias?: string  } 
+  | { name: 'description_not_in', alias?: string  } 
+  | { name: 'description_lt', alias?: string  } 
+  | { name: 'description_lte', alias?: string  } 
+  | { name: 'description_gt', alias?: string  } 
+  | { name: 'description_gte', alias?: string  } 
+  | { name: 'description_contains', alias?: string  } 
+  | { name: 'description_not_contains', alias?: string  } 
+  | { name: 'description_starts_with', alias?: string  } 
+  | { name: 'description_not_starts_with', alias?: string  } 
+  | { name: 'description_ends_with', alias?: string  } 
+  | { name: 'description_not_ends_with', alias?: string  } 
+  | { name: 'familyName', alias?: string  } 
+  | { name: 'familyName_not', alias?: string  } 
+  | { name: 'familyName_in', alias?: string  } 
+  | { name: 'familyName_not_in', alias?: string  } 
+  | { name: 'familyName_lt', alias?: string  } 
+  | { name: 'familyName_lte', alias?: string  } 
+  | { name: 'familyName_gt', alias?: string  } 
+  | { name: 'familyName_gte', alias?: string  } 
+  | { name: 'familyName_contains', alias?: string  } 
+  | { name: 'familyName_not_contains', alias?: string  } 
+  | { name: 'familyName_starts_with', alias?: string  } 
+  | { name: 'familyName_not_starts_with', alias?: string  } 
+  | { name: 'familyName_ends_with', alias?: string  } 
+  | { name: 'familyName_not_ends_with', alias?: string  } 
+  | { name: 'babyGenre', alias?: string  } 
+  | { name: 'babyGenre_not', alias?: string  } 
+  | { name: 'babyGenre_in', alias?: string  } 
+  | { name: 'babyGenre_not_in', alias?: string  } 
+  | { name: 'babyName', alias?: string  } 
+  | { name: 'babyName_not', alias?: string  } 
+  | { name: 'babyName_in', alias?: string  } 
+  | { name: 'babyName_not_in', alias?: string  } 
+  | { name: 'babyName_lt', alias?: string  } 
+  | { name: 'babyName_lte', alias?: string  } 
+  | { name: 'babyName_gt', alias?: string  } 
+  | { name: 'babyName_gte', alias?: string  } 
+  | { name: 'babyName_contains', alias?: string  } 
+  | { name: 'babyName_not_contains', alias?: string  } 
+  | { name: 'babyName_starts_with', alias?: string  } 
+  | { name: 'babyName_not_starts_with', alias?: string  } 
+  | { name: 'babyName_ends_with', alias?: string  } 
+  | { name: 'babyName_not_ends_with', alias?: string  } 
+  | { name: 'birthDate', alias?: string  } 
+  | { name: 'birthDate_not', alias?: string  } 
+  | { name: 'birthDate_in', alias?: string  } 
+  | { name: 'birthDate_not_in', alias?: string  } 
+  | { name: 'birthDate_lt', alias?: string  } 
+  | { name: 'birthDate_lte', alias?: string  } 
+  | { name: 'birthDate_gt', alias?: string  } 
+  | { name: 'birthDate_gte', alias?: string  } 
+  | { name: 'author', alias?: string  } 
+  | { name: 'members_every', alias?: string  } 
+  | { name: 'members_some', alias?: string  } 
+  | { name: 'members_none', alias?: string  } 
+  | { name: 'isActivated', alias?: string  } 
+  | { name: 'isActivated_not', alias?: string  } 
+  | { name: 'isOpen', alias?: string  } 
+  | { name: 'isOpen_not', alias?: string  } 
+  | { name: 'AND', alias?: string  } 
+  | { name: 'OR', alias?: string  } 
+  | { name: 'NOT', alias?: string  } 
+  
+export interface MemberWhereUniqueInput {
+  id?: string | null
+}
+export type MemberWhereUniqueInputInputObject =
+  | Extract<keyof MemberWhereUniqueInput, string>
+  | { name: 'id', alias?: string  } 
+  
+export interface ListWhereUniqueInput {
+  id?: string | null
+}
+export type ListWhereUniqueInputInputObject =
+  | Extract<keyof ListWhereUniqueInput, string>
+  | { name: 'id', alias?: string  } 
+  
+export interface UserWhereUniqueInput {
+  id?: string | null
+  email?: string | null
+}
+export type UserWhereUniqueInputInputObject =
+  | Extract<keyof UserWhereUniqueInput, string>
+  | { name: 'id', alias?: string  } 
+  | { name: 'email', alias?: string  } 
+  
+export interface GiftCreateInput {
+  id?: string | null
+  name?: string
+  link?: string
+  list?: ListCreateOneInput
+  owner?: UserCreateOneInput | null
+}
+export type GiftCreateInputInputObject =
+  | Extract<keyof GiftCreateInput, string>
+  | { name: 'id', alias?: string  } 
+  | { name: 'name', alias?: string  } 
+  | { name: 'link', alias?: string  } 
+  | { name: 'list', alias?: string  } 
+  | { name: 'owner', alias?: string  } 
+  
+export interface ListCreateOneInput {
+  create?: ListCreateInput | null
+  connect?: ListWhereUniqueInput | null
+}
+export type ListCreateOneInputInputObject =
+  | Extract<keyof ListCreateOneInput, string>
+  | { name: 'create', alias?: string  } 
+  | { name: 'connect', alias?: string  } 
+  
+export interface ListCreateInput {
+  id?: string | null
+  name?: string
+  description?: string | null
+  familyName?: string | null
+  babyGenre?: prisma.Genre | null
+  babyName?: string | null
+  birthDate?: string | null
+  author?: UserCreateOneInput
+  members?: MemberCreateManyInput | null
+  isActivated?: boolean | null
+  isOpen?: boolean | null
+}
+export type ListCreateInputInputObject =
+  | Extract<keyof ListCreateInput, string>
+  | { name: 'id', alias?: string  } 
+  | { name: 'name', alias?: string  } 
+  | { name: 'description', alias?: string  } 
+  | { name: 'familyName', alias?: string  } 
+  | { name: 'babyGenre', alias?: string  } 
+  | { name: 'babyName', alias?: string  } 
+  | { name: 'birthDate', alias?: string  } 
+  | { name: 'author', alias?: string  } 
+  | { name: 'members', alias?: string  } 
+  | { name: 'isActivated', alias?: string  } 
+  | { name: 'isOpen', alias?: string  } 
+  
+export interface UserCreateOneInput {
+  create?: UserCreateInput | null
+  connect?: UserWhereUniqueInput | null
+}
+export type UserCreateOneInputInputObject =
+  | Extract<keyof UserCreateOneInput, string>
+  | { name: 'create', alias?: string  } 
+  | { name: 'connect', alias?: string  } 
+  
+export interface UserCreateInput {
+  id?: string | null
+  firstName?: string
+  lastName?: string
+  email?: string
+  password?: string
+  role?: prisma.Role | null
+  genre?: prisma.Genre
+}
+export type UserCreateInputInputObject =
+  | Extract<keyof UserCreateInput, string>
+  | { name: 'id', alias?: string  } 
+  | { name: 'firstName', alias?: string  } 
+  | { name: 'lastName', alias?: string  } 
+  | { name: 'email', alias?: string  } 
+  | { name: 'password', alias?: string  } 
+  | { name: 'role', alias?: string  } 
+  | { name: 'genre', alias?: string  } 
+  
+export interface MemberCreateManyInput {
+  create?: MemberCreateInput[]
+  connect?: MemberWhereUniqueInput[]
+}
+export type MemberCreateManyInputInputObject =
+  | Extract<keyof MemberCreateManyInput, string>
+  | { name: 'create', alias?: string  } 
+  | { name: 'connect', alias?: string  } 
+  
+export interface MemberCreateInput {
+  id?: string | null
+  user?: UserCreateOneInput
+  status?: prisma.MemberShip | null
+}
+export type MemberCreateInputInputObject =
+  | Extract<keyof MemberCreateInput, string>
+  | { name: 'id', alias?: string  } 
+  | { name: 'user', alias?: string  } 
+  | { name: 'status', alias?: string  } 
+  
+export interface GiftUpdateInput {
+  name?: string | null
+  link?: string | null
+  list?: ListUpdateOneRequiredInput | null
+  owner?: UserUpdateOneInput | null
+}
+export type GiftUpdateInputInputObject =
+  | Extract<keyof GiftUpdateInput, string>
+  | { name: 'name', alias?: string  } 
+  | { name: 'link', alias?: string  } 
+  | { name: 'list', alias?: string  } 
+  | { name: 'owner', alias?: string  } 
+  
+export interface ListUpdateOneRequiredInput {
+  create?: ListCreateInput | null
+  update?: ListUpdateDataInput | null
+  upsert?: ListUpsertNestedInput | null
+  connect?: ListWhereUniqueInput | null
+}
+export type ListUpdateOneRequiredInputInputObject =
+  | Extract<keyof ListUpdateOneRequiredInput, string>
+  | { name: 'create', alias?: string  } 
+  | { name: 'update', alias?: string  } 
+  | { name: 'upsert', alias?: string  } 
+  | { name: 'connect', alias?: string  } 
+  
+export interface ListUpdateDataInput {
+  name?: string | null
+  description?: string | null
+  familyName?: string | null
+  babyGenre?: prisma.Genre | null
+  babyName?: string | null
+  birthDate?: string | null
+  author?: UserUpdateOneRequiredInput | null
+  members?: MemberUpdateManyInput | null
+  isActivated?: boolean | null
+  isOpen?: boolean | null
+}
+export type ListUpdateDataInputInputObject =
+  | Extract<keyof ListUpdateDataInput, string>
+  | { name: 'name', alias?: string  } 
+  | { name: 'description', alias?: string  } 
+  | { name: 'familyName', alias?: string  } 
+  | { name: 'babyGenre', alias?: string  } 
+  | { name: 'babyName', alias?: string  } 
+  | { name: 'birthDate', alias?: string  } 
+  | { name: 'author', alias?: string  } 
+  | { name: 'members', alias?: string  } 
+  | { name: 'isActivated', alias?: string  } 
+  | { name: 'isOpen', alias?: string  } 
+  
+export interface UserUpdateOneRequiredInput {
+  create?: UserCreateInput | null
+  update?: UserUpdateDataInput | null
+  upsert?: UserUpsertNestedInput | null
+  connect?: UserWhereUniqueInput | null
+}
+export type UserUpdateOneRequiredInputInputObject =
+  | Extract<keyof UserUpdateOneRequiredInput, string>
+  | { name: 'create', alias?: string  } 
+  | { name: 'update', alias?: string  } 
+  | { name: 'upsert', alias?: string  } 
+  | { name: 'connect', alias?: string  } 
+  
+export interface UserUpdateDataInput {
+  firstName?: string | null
+  lastName?: string | null
+  email?: string | null
+  password?: string | null
+  role?: prisma.Role | null
+  genre?: prisma.Genre | null
+}
+export type UserUpdateDataInputInputObject =
+  | Extract<keyof UserUpdateDataInput, string>
+  | { name: 'firstName', alias?: string  } 
+  | { name: 'lastName', alias?: string  } 
+  | { name: 'email', alias?: string  } 
+  | { name: 'password', alias?: string  } 
+  | { name: 'role', alias?: string  } 
+  | { name: 'genre', alias?: string  } 
+  
+export interface UserUpsertNestedInput {
+  update?: UserUpdateDataInput
+  create?: UserCreateInput
+}
+export type UserUpsertNestedInputInputObject =
+  | Extract<keyof UserUpsertNestedInput, string>
+  | { name: 'update', alias?: string  } 
+  | { name: 'create', alias?: string  } 
+  
+export interface MemberUpdateManyInput {
+  create?: MemberCreateInput[]
+  update?: MemberUpdateWithWhereUniqueNestedInput[]
+  upsert?: MemberUpsertWithWhereUniqueNestedInput[]
+  delete?: MemberWhereUniqueInput[]
+  connect?: MemberWhereUniqueInput[]
+  set?: MemberWhereUniqueInput[]
+  disconnect?: MemberWhereUniqueInput[]
+  deleteMany?: MemberScalarWhereInput[]
+  updateMany?: MemberUpdateManyWithWhereNestedInput[]
+}
+export type MemberUpdateManyInputInputObject =
+  | Extract<keyof MemberUpdateManyInput, string>
+  | { name: 'create', alias?: string  } 
+  | { name: 'update', alias?: string  } 
+  | { name: 'upsert', alias?: string  } 
+  | { name: 'delete', alias?: string  } 
+  | { name: 'connect', alias?: string  } 
+  | { name: 'set', alias?: string  } 
+  | { name: 'disconnect', alias?: string  } 
+  | { name: 'deleteMany', alias?: string  } 
+  | { name: 'updateMany', alias?: string  } 
+  
+export interface MemberUpdateWithWhereUniqueNestedInput {
+  where?: MemberWhereUniqueInput
+  data?: MemberUpdateDataInput
+}
+export type MemberUpdateWithWhereUniqueNestedInputInputObject =
+  | Extract<keyof MemberUpdateWithWhereUniqueNestedInput, string>
   | { name: 'where', alias?: string  } 
   | { name: 'data', alias?: string  } 
   
-export interface ListUpdateManyDataInput {
-  name?: string | null
+export interface MemberUpdateDataInput {
+  user?: UserUpdateOneRequiredInput | null
+  status?: prisma.MemberShip | null
 }
-export type ListUpdateManyDataInputInputObject =
-  | Extract<keyof ListUpdateManyDataInput, string>
+export type MemberUpdateDataInputInputObject =
+  | Extract<keyof MemberUpdateDataInput, string>
+  | { name: 'user', alias?: string  } 
+  | { name: 'status', alias?: string  } 
+  
+export interface MemberUpsertWithWhereUniqueNestedInput {
+  where?: MemberWhereUniqueInput
+  update?: MemberUpdateDataInput
+  create?: MemberCreateInput
+}
+export type MemberUpsertWithWhereUniqueNestedInputInputObject =
+  | Extract<keyof MemberUpsertWithWhereUniqueNestedInput, string>
+  | { name: 'where', alias?: string  } 
+  | { name: 'update', alias?: string  } 
+  | { name: 'create', alias?: string  } 
+  
+export interface MemberScalarWhereInput {
+  id?: string | null
+  id_not?: string | null
+  id_in?: string[]
+  id_not_in?: string[]
+  id_lt?: string | null
+  id_lte?: string | null
+  id_gt?: string | null
+  id_gte?: string | null
+  id_contains?: string | null
+  id_not_contains?: string | null
+  id_starts_with?: string | null
+  id_not_starts_with?: string | null
+  id_ends_with?: string | null
+  id_not_ends_with?: string | null
+  status?: prisma.MemberShip | null
+  status_not?: prisma.MemberShip | null
+  status_in?: prisma.MemberShip[]
+  status_not_in?: prisma.MemberShip[]
+  AND?: MemberScalarWhereInput[]
+  OR?: MemberScalarWhereInput[]
+  NOT?: MemberScalarWhereInput[]
+}
+export type MemberScalarWhereInputInputObject =
+  | Extract<keyof MemberScalarWhereInput, string>
+  | { name: 'id', alias?: string  } 
+  | { name: 'id_not', alias?: string  } 
+  | { name: 'id_in', alias?: string  } 
+  | { name: 'id_not_in', alias?: string  } 
+  | { name: 'id_lt', alias?: string  } 
+  | { name: 'id_lte', alias?: string  } 
+  | { name: 'id_gt', alias?: string  } 
+  | { name: 'id_gte', alias?: string  } 
+  | { name: 'id_contains', alias?: string  } 
+  | { name: 'id_not_contains', alias?: string  } 
+  | { name: 'id_starts_with', alias?: string  } 
+  | { name: 'id_not_starts_with', alias?: string  } 
+  | { name: 'id_ends_with', alias?: string  } 
+  | { name: 'id_not_ends_with', alias?: string  } 
+  | { name: 'status', alias?: string  } 
+  | { name: 'status_not', alias?: string  } 
+  | { name: 'status_in', alias?: string  } 
+  | { name: 'status_not_in', alias?: string  } 
+  | { name: 'AND', alias?: string  } 
+  | { name: 'OR', alias?: string  } 
+  | { name: 'NOT', alias?: string  } 
+  
+export interface MemberUpdateManyWithWhereNestedInput {
+  where?: MemberScalarWhereInput
+  data?: MemberUpdateManyDataInput
+}
+export type MemberUpdateManyWithWhereNestedInputInputObject =
+  | Extract<keyof MemberUpdateManyWithWhereNestedInput, string>
+  | { name: 'where', alias?: string  } 
+  | { name: 'data', alias?: string  } 
+  
+export interface MemberUpdateManyDataInput {
+  status?: prisma.MemberShip | null
+}
+export type MemberUpdateManyDataInputInputObject =
+  | Extract<keyof MemberUpdateManyDataInput, string>
+  | { name: 'status', alias?: string  } 
+  
+export interface ListUpsertNestedInput {
+  update?: ListUpdateDataInput
+  create?: ListCreateInput
+}
+export type ListUpsertNestedInputInputObject =
+  | Extract<keyof ListUpsertNestedInput, string>
+  | { name: 'update', alias?: string  } 
+  | { name: 'create', alias?: string  } 
+  
+export interface UserUpdateOneInput {
+  create?: UserCreateInput | null
+  update?: UserUpdateDataInput | null
+  upsert?: UserUpsertNestedInput | null
+  delete?: boolean | null
+  disconnect?: boolean | null
+  connect?: UserWhereUniqueInput | null
+}
+export type UserUpdateOneInputInputObject =
+  | Extract<keyof UserUpdateOneInput, string>
+  | { name: 'create', alias?: string  } 
+  | { name: 'update', alias?: string  } 
+  | { name: 'upsert', alias?: string  } 
+  | { name: 'delete', alias?: string  } 
+  | { name: 'disconnect', alias?: string  } 
+  | { name: 'connect', alias?: string  } 
+  
+export interface GiftUpdateManyMutationInput {
+  name?: string | null
+  link?: string | null
+}
+export type GiftUpdateManyMutationInputInputObject =
+  | Extract<keyof GiftUpdateManyMutationInput, string>
   | { name: 'name', alias?: string  } 
+  | { name: 'link', alias?: string  } 
+  
+export interface MemberUpdateInput {
+  user?: UserUpdateOneRequiredInput | null
+  status?: prisma.MemberShip | null
+}
+export type MemberUpdateInputInputObject =
+  | Extract<keyof MemberUpdateInput, string>
+  | { name: 'user', alias?: string  } 
+  | { name: 'status', alias?: string  } 
+  
+export interface MemberUpdateManyMutationInput {
+  status?: prisma.MemberShip | null
+}
+export type MemberUpdateManyMutationInputInputObject =
+  | Extract<keyof MemberUpdateManyMutationInput, string>
+  | { name: 'status', alias?: string  } 
+  
+export interface ListUpdateInput {
+  name?: string | null
+  description?: string | null
+  familyName?: string | null
+  babyGenre?: prisma.Genre | null
+  babyName?: string | null
+  birthDate?: string | null
+  author?: UserUpdateOneRequiredInput | null
+  members?: MemberUpdateManyInput | null
+  isActivated?: boolean | null
+  isOpen?: boolean | null
+}
+export type ListUpdateInputInputObject =
+  | Extract<keyof ListUpdateInput, string>
+  | { name: 'name', alias?: string  } 
+  | { name: 'description', alias?: string  } 
+  | { name: 'familyName', alias?: string  } 
+  | { name: 'babyGenre', alias?: string  } 
+  | { name: 'babyName', alias?: string  } 
+  | { name: 'birthDate', alias?: string  } 
+  | { name: 'author', alias?: string  } 
+  | { name: 'members', alias?: string  } 
+  | { name: 'isActivated', alias?: string  } 
+  | { name: 'isOpen', alias?: string  } 
+  
+export interface ListUpdateManyMutationInput {
+  name?: string | null
+  description?: string | null
+  familyName?: string | null
+  babyGenre?: prisma.Genre | null
+  babyName?: string | null
+  birthDate?: string | null
+  isActivated?: boolean | null
+  isOpen?: boolean | null
+}
+export type ListUpdateManyMutationInputInputObject =
+  | Extract<keyof ListUpdateManyMutationInput, string>
+  | { name: 'name', alias?: string  } 
+  | { name: 'description', alias?: string  } 
+  | { name: 'familyName', alias?: string  } 
+  | { name: 'babyGenre', alias?: string  } 
+  | { name: 'babyName', alias?: string  } 
+  | { name: 'birthDate', alias?: string  } 
+  | { name: 'isActivated', alias?: string  } 
+  | { name: 'isOpen', alias?: string  } 
+  
+export interface UserUpdateInput {
+  firstName?: string | null
+  lastName?: string | null
+  email?: string | null
+  password?: string | null
+  role?: prisma.Role | null
+  genre?: prisma.Genre | null
+}
+export type UserUpdateInputInputObject =
+  | Extract<keyof UserUpdateInput, string>
+  | { name: 'firstName', alias?: string  } 
+  | { name: 'lastName', alias?: string  } 
+  | { name: 'email', alias?: string  } 
+  | { name: 'password', alias?: string  } 
+  | { name: 'role', alias?: string  } 
+  | { name: 'genre', alias?: string  } 
   
 export interface UserUpdateManyMutationInput {
   firstName?: string | null
@@ -1904,6 +3484,48 @@ export type UserUpdateManyMutationInputInputObject =
   | { name: 'password', alias?: string  } 
   | { name: 'role', alias?: string  } 
   | { name: 'genre', alias?: string  } 
+  
+export interface GiftSubscriptionWhereInput {
+  mutation_in?: prisma.MutationType[]
+  updatedFields_contains?: string | null
+  updatedFields_contains_every?: string[]
+  updatedFields_contains_some?: string[]
+  node?: GiftWhereInput | null
+  AND?: GiftSubscriptionWhereInput[]
+  OR?: GiftSubscriptionWhereInput[]
+  NOT?: GiftSubscriptionWhereInput[]
+}
+export type GiftSubscriptionWhereInputInputObject =
+  | Extract<keyof GiftSubscriptionWhereInput, string>
+  | { name: 'mutation_in', alias?: string  } 
+  | { name: 'updatedFields_contains', alias?: string  } 
+  | { name: 'updatedFields_contains_every', alias?: string  } 
+  | { name: 'updatedFields_contains_some', alias?: string  } 
+  | { name: 'node', alias?: string  } 
+  | { name: 'AND', alias?: string  } 
+  | { name: 'OR', alias?: string  } 
+  | { name: 'NOT', alias?: string  } 
+  
+export interface MemberSubscriptionWhereInput {
+  mutation_in?: prisma.MutationType[]
+  updatedFields_contains?: string | null
+  updatedFields_contains_every?: string[]
+  updatedFields_contains_some?: string[]
+  node?: MemberWhereInput | null
+  AND?: MemberSubscriptionWhereInput[]
+  OR?: MemberSubscriptionWhereInput[]
+  NOT?: MemberSubscriptionWhereInput[]
+}
+export type MemberSubscriptionWhereInputInputObject =
+  | Extract<keyof MemberSubscriptionWhereInput, string>
+  | { name: 'mutation_in', alias?: string  } 
+  | { name: 'updatedFields_contains', alias?: string  } 
+  | { name: 'updatedFields_contains_every', alias?: string  } 
+  | { name: 'updatedFields_contains_some', alias?: string  } 
+  | { name: 'node', alias?: string  } 
+  | { name: 'AND', alias?: string  } 
+  | { name: 'OR', alias?: string  } 
+  | { name: 'NOT', alias?: string  } 
   
 export interface ListSubscriptionWhereInput {
   mutation_in?: prisma.MutationType[]
@@ -1948,19 +3570,59 @@ export type UserSubscriptionWhereInputInputObject =
   | { name: 'NOT', alias?: string  } 
   
 
+export type GenreValues =
+  | 'MALE'
+  | 'FEMALE'
+  
 export type RoleValues =
   | 'USER'
   | 'ADMIN'
   
-export type GenreValues =
-  | 'MALE'
-  | 'FEMALE'
+export type MemberShipValues =
+  | 'CONTRIBUTOR'
+  | 'ADMIN'
+  
+export type MemberOrderByInputValues =
+  | 'id_ASC'
+  | 'id_DESC'
+  | 'status_ASC'
+  | 'status_DESC'
+  | 'createdAt_ASC'
+  | 'createdAt_DESC'
+  | 'updatedAt_ASC'
+  | 'updatedAt_DESC'
+  
+export type GiftOrderByInputValues =
+  | 'id_ASC'
+  | 'id_DESC'
+  | 'name_ASC'
+  | 'name_DESC'
+  | 'link_ASC'
+  | 'link_DESC'
+  | 'createdAt_ASC'
+  | 'createdAt_DESC'
+  | 'updatedAt_ASC'
+  | 'updatedAt_DESC'
   
 export type ListOrderByInputValues =
   | 'id_ASC'
   | 'id_DESC'
   | 'name_ASC'
   | 'name_DESC'
+  | 'description_ASC'
+  | 'description_DESC'
+  | 'familyName_ASC'
+  | 'familyName_DESC'
+  | 'babyGenre_ASC'
+  | 'babyGenre_DESC'
+  | 'babyName_ASC'
+  | 'babyName_DESC'
+  | 'birthDate_ASC'
+  | 'birthDate_DESC'
+  | 'isActivated_ASC'
+  | 'isActivated_DESC'
+  | 'isOpen_ASC'
+  | 'isOpen_DESC'
   | 'createdAt_ASC'
   | 'createdAt_DESC'
   | 'updatedAt_ASC'

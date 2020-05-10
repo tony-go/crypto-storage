@@ -34,6 +34,5 @@ yarn test
 
 ## Todo
 
-- authorizations
+- authorizations (wip)
 - logger
-- handle errors

@@ -8,10 +8,37 @@ enum Genre {
   FEMALE
 }
 
+type Gift {
+  id: ID! @id
+  name: String!
+  link: String!
+  list: List! @relation(link: INLINE)
+  owner: User @relation(link: INLINE)
+}
+
+enum MemberShip {
+  CONTRIBUTOR
+  ADMIN
+}
+
+type Member {
+  id: ID! @id
+  user: User! @relation(link: INLINE)
+  status: MemberShip
+}
+
 type List {
   id: ID! @id
   name: String!
+  description: String
+  familyName: String
+  babyGenre: Genre
+  babyName: String
+  birthDate: DateTime
   author: User! @relation(link: INLINE)
+  members: [Member]
+  isActivated: Boolean! @default(value: true)
+  isOpen: Boolean! @default(value: false)
 }
 
 type User {
@@ -24,5 +51,4 @@ type User {
   updatedAt: DateTime! @updatedAt
   role: Role! @default(value: USER)
   genre: Genre!
-  list: [List]
 }

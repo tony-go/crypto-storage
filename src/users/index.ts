@@ -1,4 +1,4 @@
-import { gql } from "apollo-server";
+import { gql, ApolloError } from "apollo-server";
 import { hash } from "bcrypt";
 
 import { IUserArgs, IUserIdArgs } from "./types";
@@ -34,6 +34,7 @@ export const userTypeDefs = gql`
     email: String!
     password: String!
     genre: Genre
+    role: Role
   }
 
   input UpdateUserInput {
@@ -43,6 +44,7 @@ export const userTypeDefs = gql`
     email: String
     password: String
     genre: Genre
+    role: Role
   }
 
   extend type Query {
@@ -63,7 +65,12 @@ export const userResolvers = {
       const { id } = args;
       return await db.user({ id });
     },
-    users: async (parent: Parent, args: any, { db }: IContext) => {
+    users: async (parent: Parent, args: any, { db, user }: IContext) => {
+      if (!user || typeof user === "object" && user?.role !== "ADMIN") {
+        throw new ApolloError(
+          "You should be log as an Admin to execute this query"
+        );
+      }
       return await db.users();
     }
   },

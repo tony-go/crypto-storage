@@ -6,5 +6,10 @@ import { authResolvers } from "./auth";
 
 export default {
   Query: Object.assign({}, userResolvers.Query, listResolvers.Query),
-  Mutation: Object.assign({}, userResolvers.Mutation, authResolvers.Mutation)
+  Mutation: Object.assign(
+    {},
+    userResolvers.Mutation,
+    authResolvers.Mutation,
+    listResolvers.Mutation
+  ),
 };

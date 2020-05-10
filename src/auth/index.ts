@@ -67,21 +67,23 @@ export const authResolvers = {
       { db }: IContext
     ) => {
       const user = await db.user({ email: input.email.toLowerCase() });
-      if (user) {
-        const match = await compare(user.password, input.password);
-        if (match) {
-          return {
-            token: sign(user, secretKey, { expiresIn: "30d" }),
-            user
-          };
-        } else {
-          throw new UserInputError("Wrong password");
-        }
-      } else {
+
+      if (!user) {
         throw new AuthenticationError(
           `User with email address ${input.email} doesn't exist`
         );
       }
+
+      const match = await compare(input.password, user.password);
+
+      if (!match) {
+        throw new UserInputError("Wrong password");
+      }
+
+      return {
+        token: sign(user, secretKey, { expiresIn: "30d" }),
+        user
+      };
     }
   }
 };
