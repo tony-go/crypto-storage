@@ -2,22 +2,9 @@ import {createTestServer} from '../utils/testUtils'
 import {createTestClient} from 'apollo-server-testing'
 import {gql} from 'apollo-server'
 
-jest.mock('bcrypt', () => ({
-  hash: jest.fn(value => value),
-}))
-
-const getFakeUser = () => ({name: 'Tony'})
+import db from '../utils/mocks/db'
 
 describe('user module', () => {
-  const db = {
-    user: {
-      findMany: jest.fn(() => [getFakeUser()]),
-      findOne: jest.fn(getFakeUser),
-      create: jest.fn(getFakeUser),
-      update: jest.fn(getFakeUser),
-      delete: jest.fn(getFakeUser),
-    },
-  }
   let user: unknown = {
     role: 'ADMIN',
   }

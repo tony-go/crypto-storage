@@ -1,26 +1,11 @@
 import {createTestClient} from 'apollo-server-testing'
 import {gql} from 'apollo-server'
 import bcrypt from 'bcrypt'
-import {sign} from 'jsonwebtoken'
 
 import {createTestServer} from '../utils/testUtils'
-
-jest.mock('bcrypt', () => ({
-  hash: jest.fn(() => Promise.resolve('xxxxx')),
-  compare: jest.fn(() => Promise.resolve(true)),
-}))
-
-jest.mock('jsonwebtoken', () => ({
-  sign: jest.fn(() => 'token'),
-}))
+import db from '../utils/mocks/db'
 
 describe('Auth module', () => {
-  let db = {
-    user: {
-      findOne: jest.fn(args => Promise.resolve({...args})),
-      create: jest.fn(args => Promise.resolve({...args})),
-    },
-  }
   const context = () => ({
     db,
   })
@@ -78,7 +63,7 @@ describe('Auth module', () => {
     })
 
     it("should signUp mutation result contains an error when user doesn't exist", async () => {
-      db.user.findOne.mockImplementationOnce(() => Promise.resolve(undefined))
+      db.user.findOne.mockImplementationOnce(() => Promise.reject())
 
       const res = await mutate({
         mutation: gql`
