@@ -1,22 +1,22 @@
-import { verify } from "jsonwebtoken";
-
 import getContext, { getUser } from "./context";
-import { secretKey } from "./auth";
 
 jest.mock("jsonwebtoken", () => ({
-  verify: jest.fn()
+  verify: jest.fn(() => ({
+    firstName: "tony"
+  })),
 }));
 
-jest.mock("./generated/prisma-client", () => ({
-  prisma: jest.fn()
+jest.mock("@prisma/client", () => ({
+  PrismaClient: jest.fn(function() {}),
 }));
 
 describe("context module", () => {
   describe("getUser", () => {
     it("should call verify", () => {
       const token = "token";
-      getUser(token);
-      expect(verify).toHaveBeenCalledWith(token, secretKey);
+      const res = getUser(token);
+      
+      expect(res?.firstName).toBeTruthy()
     });
 
     it("should return null when string is empty", () => {

@@ -1,15 +1,15 @@
 enum Genre {
   MALE = "MALE",
-  FEMALE = "FEMALE"
+  FEMALE = "FEMALE",
 }
 
 enum Role {
   ADMIN = "ADMIN",
-  USER = "USER"
+  USER = "USER",
 }
 
 export interface IUser {
-  id?: string;
+  id?: number;
   firstName: string;
   lastName: string;
   email: string;
@@ -19,7 +19,7 @@ export interface IUser {
 }
 
 export interface IUserIdArgs {
-  id: string;
+  id: number;
 }
 
 export interface IUserArgs {

@@ -5,14 +5,16 @@
   "license": "MIT",
   "scripts": {
     "up": "docker-compose up",
-    "generate": "prisma generate",
-    "deploy": "prisma deploy",
+    "migrate": "npx prisma migrate up --experimental",
+    "generate": "npx prisma generate",
     "start": "nodemon",
-    "test": "jest --watch"
+    "test": "jest",
+    "test:watch": "jest --watch"
   },
   "devDependencies": {
     "@prisma/cli": "^2.0.0-beta.1",
     "@types/node": "12.12.28",
+    "prettier": "^2.0.5",
     "ts-node": "8.7.0",
     "typescript": "3.8.3"
   },
@@ -29,7 +31,6 @@
     "jest": "^25.3.0",
     "jsonwebtoken": "^8.5.1",
     "lodash": "^4.17.15",
-    "prisma-client-lib": "^1.34.10",
     "ts-jest": "^25.3.1"
   }
 }

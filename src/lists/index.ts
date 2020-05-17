@@ -1,8 +1,8 @@
-import { gql } from "apollo-server";
+import {gql} from 'apollo-server'
 
-import { Parent } from "../types";
-import { IContext } from "../context";
-import { ListCreateInput, ListWhereInput } from "../generated/prisma-client";
+import {Parent} from '../types'
+import {IContext} from '../context'
+import {checkUserValidity} from '../utils/user'
 
 export const listTypeDefs = gql`
   enum MemberShip {
@@ -10,14 +10,10 @@ export const listTypeDefs = gql`
     ADMIN
   }
 
-  enum ListAs {
-    AUTHOR
-    MEMBER
-  }
-
   type Member {
-    id: String!
-    user: User!
+    id: Int!
+    userId: Int!
+    listId: Int!
     status: MemberShip
   }
 
@@ -27,9 +23,9 @@ export const listTypeDefs = gql`
   }
 
   type List {
-    id: String
+    id: Int
     name: String!
-    author: String!
+    authorId: Int!
     description: String
     familyName: String
     babyGenre: Genre
@@ -42,65 +38,68 @@ export const listTypeDefs = gql`
 
   input CreateListInput {
     name: String!
-    author: String!
     description: String
     familyName: String
     babyGenre: Genre
     babyName: String
     birthDate: String
-    members: [MemberInput]
+    members: [MemberInput!]
     isActivated: Boolean!
     isOpen: Boolean!
   }
 
   extend type Query {
-    lists(as: ListAs!): [List]
+    listsAsAuthor: [List!]
+    listsAsMember: [List!]
   }
 
   extend type Mutation {
     createList(input: CreateListInput!): List
   }
-`;
-
-type ListAs = "AUTHOR" | "MEMBER";
-
-interface IGetListsArgs {
-  as: ListAs;
-}
+`
 
 export const listResolvers = {
   Query: {
-    lists: async (
+    listsAsAuthor: async (parent: Parent, args: {}, context: IContext) => {
+      checkUserValidity(context)
+
+      const {db, user} = context
+
+      return await db.list.findMany({
+        where: {authorId: user?.id},
+      })
+    },
+    listsAsMember: async (
       parent: Parent,
-      args: IGetListsArgs,
-      { db, user }: IContext
+      args: {},
+      context: IContext,
+      info: any,
     ) => {
-      if (user && typeof user === "object") {
-        const { id } = user;
-        const { as } = args;
-        if (as === "AUTHOR") {
-          return await db.lists({ where: { author: { id } } });
-        }
-        if (as === "MEMBER") {
-          return await db.lists({ where: { members_some: { id } } });
-        }
-      } else {
-        // should throw
-      }
+      checkUserValidity(context)
+
+      const {db, user} = context
+
+      return await db.list.findMany({where: {members: {some: {id: user?.id}}}})
     },
   },
   Mutation: {
     createList: async (
       parent: Parent,
-      args: { input: any },
-      { db }: IContext
+      args: {input: any},
+      context: IContext,
     ) => {
-      return await db.createList({
-        ...args.input,
-        author: {
-          connect: { id: args.input.author },
+      checkUserValidity(context)
+
+      const {db, user} = context
+
+      return await db.list.create({
+        data: {
+          ...args.input,
+          author: {
+            connect: {email: user?.email},
+          },
         },
-      });
+      })
     },
   },
-};
+}

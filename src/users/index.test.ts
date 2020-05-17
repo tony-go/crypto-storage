@@ -1,35 +1,44 @@
-import { createTestServer } from "../utils/testUtils";
-import { createTestClient } from "apollo-server-testing";
-import { gql } from "apollo-server";
-import { hash } from "bcrypt";
+import {createTestServer} from '../utils/testUtils'
+import {createTestClient} from 'apollo-server-testing'
+import {gql} from 'apollo-server'
 
-jest.mock("bcrypt", () => ({
-  hash: jest.fn(value => value)
-}));
+jest.mock('bcrypt', () => ({
+  hash: jest.fn(value => value),
+}))
 
-describe("user module", () => {
+const getFakeUser = () => ({name: 'Tony'})
+
+describe('user module', () => {
   const db = {
-    user: jest.fn(),
-    users: jest.fn(),
-    createUser: jest.fn(),
-    updateUser: jest.fn(),
-    deleteUser: jest.fn()
-  };
+    user: {
+      findMany: jest.fn(() => [getFakeUser()]),
+      findOne: jest.fn(getFakeUser),
+      create: jest.fn(getFakeUser),
+      update: jest.fn(getFakeUser),
+      delete: jest.fn(getFakeUser),
+    },
+  }
+  let user: unknown = {
+    role: 'ADMIN',
+  }
   const context = () => ({
-    db
-  });
-  const server = createTestServer(context);
-  const { query, mutate } = createTestClient(server as any);
-  const id = "2";
+    db,
+    user,
+  })
+  const server = createTestServer(context)
+  const {query, mutate} = createTestClient(server as any)
+  const id = '2'
 
-  afterEach(() => {
-    jest.clearAllMocks();
-  });
+  describe('queries', () => {
+    afterEach(() => {
+      jest.clearAllMocks()
+      user = {
+        role: 'ADMIN',
+      }
+    })
 
-  describe("queries", () => {
-    it("users query should use db.users()", async () => {
-      await query({
-        query: `
+    describe('users query', () => {
+      const usersQuery = gql`
         {
           users {
             id
@@ -39,114 +48,211 @@ describe("user module", () => {
           }
         }
       `
-      });
-      expect(db.users).toHaveBeenCalled();
-    });
 
-    it("query user should call db.user()", async () => {
-      await query({
-        query: gql`
-          query User($id: String!) {
-            user(id: $id) {
-              id
-              lastName
-            }
+      it('users query should return data.users', async () => {
+        const {data, errors} = await query({query: usersQuery})
+
+        expect(data?.users).toBeTruthy()
+        expect(errors).toBeFalsy()
+      })
+
+      it('users query should return an error when ctx.user is not defined', async () => {
+        user = null
+        const {errors, data} = await query({query: usersQuery})
+
+        expect(errors).toBeTruthy()
+        expect(data?.users).toBeFalsy()
+      })
+
+      it('users query should return an error when ctx.user.role is not ADMIN', async () => {
+        user = {role: 'USER'}
+        const {errors, data} = await query({query: usersQuery})
+
+        expect(errors).toBeTruthy()
+        expect(data?.users).toBeFalsy()
+      })
+    })
+
+    describe('query user', () => {
+      const userQuery = gql`
+        query User($id: String!) {
+          user(id: $id) {
+            id
+            lastName
           }
-        `,
-        variables: {
-          id
         }
-      });
-      expect(db.user).toHaveBeenCalledWith({ id });
-    });
-  });
+      `
+      const variables = {id}
 
-  describe("mutations", () => {
-    const user: any = {
-      firstName: "bakate",
-      lastName: "yoyo",
-      password: "lol",
-      email: "bakate@lo.fr",
-      genre: "MALE"
-    };
+      it('query user should return data.user', async () => {
+        const {data, errors} = await query({
+          query: userQuery,
+          variables,
+        })
 
-    it("addUser mutation should call db.createUser()", async () => {
-      await mutate({
-        mutation: gql`
-          mutation AddUser($user: UserInput!) {
-            addUser(user: $user) {
-              id
-            }
-          }
-        `,
-        variables: { user }
-      });
+        expect(data?.user).toBeTruthy()
+        expect(errors).toBeFalsy()
+      })
 
-      expect(hash).toHaveBeenCalledWith(user.password, 10);
-      expect(db.createUser).toHaveBeenCalledWith(user);
-    });
+      it('user query should return an error when ctx.user in undefined', async () => {
+        user = null
+        const {errors, data} = await query({
+          query: userQuery,
+          variables,
+        })
 
-    it("updateUser should call db.updateUser() and hash", async () => {
-      await mutate({
-        mutation: gql`
-          mutation updateUser($user: UpdateUserInput!) {
-            updateUser(user: $user) {
-              id
-            }
-          }
-        `,
-        variables: {
-          user: {
-            ...user,
+        expect(data?.user).toBeFalsy()
+        expect(errors).toBeTruthy()
+      })
+
+      it('user query should return an error when ctx.user.role is not ADMIN', async () => {
+        user = {role: 'USER'}
+        const {data, errors} = await query({
+          query: userQuery,
+          variables,
+        })
+
+        expect(data?.user).toBeFalsy()
+        expect(errors).toBeTruthy()
+      })
+    })
+  })
+
+  describe('mutations', () => {
+    const userSource: any = {
+      firstName: 'bakate',
+      lastName: 'yoyo',
+      password: 'lol',
+      email: 'bakate@lo.fr',
+      genre: 'MALE',
+    }
+    afterEach(() => {
+      user = {
+        role: 'ADMIN',
+      }
+    })
+
+    describe('addUser mutation', () => {
+      const mutation = gql`
+        mutation AddUser($user: UserInput!) {
+          addUser(user: $user) {
             id
           }
         }
-      });
+      `
+      const variables = {user: userSource}
 
-      expect(db.updateUser).toHaveBeenCalledWith({ where: { id }, data: user });
-      expect(hash).toHaveBeenCalledWith(user.password, 10);
-    });
+      it('addUser mutation should return a data property', async () => {
+        const {data, errors} = await mutate({
+          mutation,
+          variables,
+        })
 
-    it("update user mutation should not call hash if password if not in payload", async () => {
-      const partialUser = {
-        firstName: "toto"
-      };
-      await mutate({
-        mutation: gql`
-          mutation UpdateUser($user: UpdateUserInput!) {
-            updateUser(user: $user) {
-              id
-            }
-          }
-        `,
-        variables: {
-          user: {
-            ...partialUser,
+        expect(data?.addUser).toBeTruthy()
+        expect(errors).toBeFalsy()
+      })
+
+      it('addUser mutation should return an error with no user in ctx', async () => {
+        user = null
+        const {errors, data} = await mutate({
+          mutation,
+          variables,
+        })
+
+        expect(errors).toBeTruthy()
+        expect(data?.addUser).toBeFalsy()
+      })
+
+      it('addUser mutation should return with a USER role', async () => {
+        user = {role: 'USER'}
+        const {errors, data} = await mutate({
+          mutation,
+          variables,
+        })
+
+        expect(errors).toBeTruthy()
+        expect(data?.addUser).toBeFalsy()
+      })
+    })
+
+    describe('updateUser', () => {
+      const mutation = gql`
+        mutation updateUser($user: UpdateUserInput!) {
+          updateUser(user: $user) {
             id
           }
         }
-      });
+      `
+      const variables = {
+        user: {
+          ...userSource,
+          id,
+        },
+      }
 
-      expect(db.updateUser).toHaveBeenCalledWith({
-        where: { id },
-        data: partialUser
-      });
-      expect(hash).not.toHaveBeenCalled();
-    });
+      it('updateUser should return a data.updateUser', async () => {
+        const {data, errors} = await mutate({
+          mutation,
+          variables,
+        })
 
-    it("delete user mutation should call db.deleteUser()", async () => {
-      await mutate({
-        mutation: gql`
-          mutation DeleteUser($id: String!) {
-            deleteUser(id: $id) {
-              id
-            }
+        expect(data?.updateUser).toBeTruthy()
+        expect(errors).toBeFalsy()
+      })
+
+      it('updateUser should return an error when user in not authenticated', async () => {
+        user = null
+        const {data, errors} = await mutate({
+          mutation,
+          variables,
+        })
+        expect(data?.updateUser).toBeFalsy()
+        expect(errors).toBeTruthy()
+      })
+
+      it('updateUser should return an error when user is not admin', async () => {
+        user = {role: 'USER'}
+        const {data, errors} = await mutate({
+          mutation,
+          variables,
+        })
+        expect(data?.updateUser).toBeFalsy()
+        expect(errors).toBeTruthy()
+      })
+    })
+
+    describe('deleteUser', () => {
+      const mutation = gql`
+        mutation DeleteUser($id: String!) {
+          deleteUser(id: $id) {
+            id
           }
-        `,
-        variables: { id }
-      });
+        }
+      `
+      const variables = {id}
 
-      expect(db.deleteUser).toHaveBeenCalledWith({ id });
-    });
-  });
-});
+      it('should return a data.deleteUser when user is authenticated', async () => {
+        const {data, errors} = await mutate({mutation, variables})
+
+        expect(data?.deleteUser).toBeTruthy()
+        expect(errors).toBeFalsy()
+      })
+
+      it('should return an error when user is not authenticated', async () => {
+        user = null
+        const {data, errors} = await mutate({mutation, variables})
+
+        expect(data?.deleteUser).toBeFalsy()
+        expect(errors).toBeTruthy()
+      })
+
+      it('should return an error when user is not Admin', async () => {
+        user = {role: 'USER'}
+        const {data, errors} = await mutate({mutation, variables})
+
+        expect(data?.deleteUser).toBeFalsy()
+        expect(errors).toBeTruthy()
+      })
+    })
+  })
+})

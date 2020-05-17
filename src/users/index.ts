@@ -1,10 +1,11 @@
-import { gql, ApolloError } from "apollo-server";
-import { hash } from "bcrypt";
+import {gql} from 'apollo-server'
+import {hash} from 'bcrypt'
 
-import { IUserArgs, IUserIdArgs } from "./types";
+import {IUserArgs, IUserIdArgs} from './types'
 
-import { IContext } from "../context";
-import { Parent } from "../types";
+import {IContext} from '../context'
+import {Parent} from '../types'
+import {checkUserValidity} from '../utils/user'
 
 export const userTypeDefs = gql`
   enum Role {
@@ -57,44 +58,55 @@ export const userTypeDefs = gql`
     updateUser(user: UpdateUserInput!): User
     deleteUser(id: String!): User
   }
-`;
+`
 
 export const userResolvers = {
   Query: {
-    user: async (parent: Parent, args: IUserIdArgs, { db, user }: IContext) => {
-      const { id } = args;
-      return await db.user({ id });
+    user: async (parent: Parent, args: IUserIdArgs, context: IContext) => {
+      checkUserValidity(context)
+
+      const {db} = context
+      const {id} = args
+      return await db.user.findOne({where: {id}})
     },
-    users: async (parent: Parent, args: any, { db, user }: IContext) => {
-      if (!user || typeof user === "object" && user?.role !== "ADMIN") {
-        throw new ApolloError(
-          "You should be log as an Admin to execute this query"
-        );
-      }
-      return await db.users();
-    }
+    users: async (parent: Parent, args: any, context: IContext) => {
+      checkUserValidity(context)
+
+      const {db} = context
+      return await db.user.findMany({first: 50})
+    },
   },
   Mutation: {
-    addUser: async (parent: Parent, args: IUserArgs, { db }: IContext) => {
-      const { user } = args;
-      user.password = await hash(user.password, 10);
-      return await db.createUser({ ...user });
+    addUser: async (parent: Parent, args: IUserArgs, context: IContext) => {
+      checkUserValidity(context)
+
+      const {db} = context
+      const {user: newUser} = args
+
+      newUser.password = await hash(newUser.password, 10)
+      return await db.user.create({data: newUser})
     },
-    updateUser: async (parent: Parent, args: IUserArgs, { db }: IContext) => {
-      const {
-        user: { id, ...userRest }
-      } = args;
+    updateUser: async (parent: Parent, args: IUserArgs, context: IContext) => {
+      checkUserValidity(context)
+
+      const {db} = context
+      const {user: userToUpdate} = args
+      const {id, ...userRest} = userToUpdate
+
       if (userRest.password) {
-        userRest.password = await hash(userRest.password, 10);
+        userRest.password = await hash(userRest.password, 10)
       }
-      return await db.updateUser({ where: { id }, data: userRest });
+      return await db.user.update({where: {id}, data: userRest})
     },
     deleteUser: async (
       parent: Parent,
-      { id }: IUserIdArgs,
-      { db }: IContext
+      {id}: IUserIdArgs,
+      context: IContext,
     ) => {
-      return await db.deleteUser({ id });
-    }
-  }
-};
+      checkUserValidity(context)
+
+      const {db} = context
+      return await db.user.delete({where: {id}})
+    },
+  },
+}

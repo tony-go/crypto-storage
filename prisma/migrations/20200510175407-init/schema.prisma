@@ -1,0 +1,79 @@
+datasource db {
+  provider = "postgresql"
+  url = "***"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+enum Role {
+  USER
+  ADMIN
+}
+
+enum Genre {
+  MALE
+  FEMALE
+}
+
+enum MemberShip {
+  CONTRIBUTOR
+  ADMIN
+}
+
+model Gift {
+  id        Int      @default(autoincrement()) @id
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+  name      String
+  link      String
+  list      List     @relation(fields: [listId], references: [id])
+  listId    Int
+  owner     User?    @relation(fields: [ownerId], references: [id])
+  ownerId   Int?
+}
+
+model Member {
+  id        Int        @default(autoincrement()) @id
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @default(now())
+  user      User       @relation(fields: [userId], references: [id])
+  userId    Int
+  status    MemberShip
+  List      List?      @relation(fields: [listId], references: [id])
+  listId    Int?
+}
+
+model List {
+  id          Int       @default(autoincrement()) @id
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @default(now())
+  name        String
+  description String?
+  familyName  String?
+  babyGenre   Genre?
+  babyName    String?
+  birthDate   DateTime?
+  gifts       Gift[]
+  members     Member[]
+  isActivated Boolean   @default(true)
+  isOpen      Boolean   @default(false)
+  author      User      @relation(fields: [authorId], references: [id])
+  authorId    Int
+}
+
+model User {
+  id        Int      @default(autoincrement()) @id
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+  firstName String
+  lastName  String
+  email     String   @unique
+  password  String
+  role      Role     @default(USER)
+  genre     Genre
+  gifts     Gift[]
+  members   Member[]
+  List      List[]
+}
