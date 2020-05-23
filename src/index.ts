@@ -10,11 +10,6 @@ const server = new ApolloServer({
   context,
 })
 
-/**
- * Todo: Static Analysis
- * - add pre hook commit (husky)
- */
-
 server.listen().then(({url}) => {
   console.log(`🚀 GraphQl server ready at ${url}`)
 })
