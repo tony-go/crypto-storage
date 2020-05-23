@@ -12,8 +12,6 @@ const server = new ApolloServer({
 
 /**
  * Todo: Static Analysis
- * - add type-check and script
- * - create a validation script (npm-run-all)
  * - add pre hook commit (husky)
  */
 
