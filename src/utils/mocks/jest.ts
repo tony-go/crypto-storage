@@ -1,5 +1,5 @@
 jest.mock('@prisma/client', () => ({
-  PrismaClient: jest.fn(function () {}),
+  PrismaClient: jest.fn(() => ({})),
 }))
 
 jest.mock('jsonwebtoken', () => ({

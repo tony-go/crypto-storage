@@ -3,6 +3,7 @@ import {gql} from 'apollo-server'
 import {Parent} from '../types'
 import {IContext} from '../context'
 import {checkUserValidity} from '../utils/user'
+import {List, ListCreateInput} from '@prisma/client'
 
 export const listTypeDefs = gql`
   enum MemberShip {
@@ -60,7 +61,11 @@ export const listTypeDefs = gql`
 
 export const listResolvers = {
   Query: {
-    listsAsAuthor: async (parent: Parent, args: {}, context: IContext) => {
+    listsAsAuthor: async (
+      parent: Parent,
+      args: unknown,
+      context: IContext,
+    ): Promise<List[]> => {
       checkUserValidity(context)
 
       const {db, user} = context
@@ -71,10 +76,9 @@ export const listResolvers = {
     },
     listsAsMember: async (
       parent: Parent,
-      args: {},
+      args: unknown,
       context: IContext,
-      info: any,
-    ) => {
+    ): Promise<List[] | undefined> => {
       checkUserValidity(context)
 
       const {db, user} = context
@@ -85,9 +89,9 @@ export const listResolvers = {
   Mutation: {
     createList: async (
       parent: Parent,
-      args: {input: any},
+      args: {input: ListCreateInput},
       context: IContext,
-    ) => {
+    ): Promise<List> => {
       checkUserValidity(context)
 
       const {db, user} = context
