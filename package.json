@@ -10,7 +10,8 @@
     "start": "nodemon",
     "test": "jest",
     "test:watch": "jest --watch",
-    "lint": "eslint ./src"
+    "lint": "eslint ./src",
+    "format": "prettier --write ./src"
   },
   "devDependencies": {
     "@prisma/cli": "^2.0.0-beta.1",

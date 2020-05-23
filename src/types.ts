@@ -1,1 +1,1 @@
-export type Parent = any;
+export type Parent = any

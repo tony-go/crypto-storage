@@ -1,8 +1,8 @@
-import merge from "lodash/fp/merge";
+import merge from 'lodash/fp/merge'
 
-import { userResolvers } from "./users";
-import { listResolvers } from "./lists";
-import { authResolvers } from "./auth";
+import {userResolvers} from './users'
+import {listResolvers} from './lists'
+import {authResolvers} from './auth'
 
 export default {
   Query: Object.assign({}, userResolvers.Query, listResolvers.Query),
@@ -10,6 +10,6 @@ export default {
     {},
     userResolvers.Mutation,
     authResolvers.Mutation,
-    listResolvers.Mutation
+    listResolvers.Mutation,
   ),
-};
+}
