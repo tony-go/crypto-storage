@@ -11,11 +11,19 @@ vhs('CryptoStorage opening depends on password argument', async t => {
   })
 
   storage2.on('ready', err => {
-    t.equal(err.message, 'password should be a string of 5 characters', 'Wrong password length')
+    t.equal(
+      err.message,
+      'password should be a string of 5 characters',
+      'Wrong password length',
+    )
   })
 
   storage3.on('ready', err => {
-    t.equal(err.message, 'password should be a string of 5 characters', 'No password')
+    t.equal(
+      err.message,
+      'password should be a string of 5 characters',
+      'No password',
+    )
   })
 })
 
@@ -35,9 +43,13 @@ vhs('Set/get crypt items in localStorage', t => {
     t.equal(array.toString(), arrayKey.toString(), 'array')
 
     // object
-    await storage.setItem('details', { age: 30, birthplace: 'neptune' })
+    await storage.setItem('details', {age: 30, birthplace: 'neptune'})
     const object = await storage.getItem('details')
-    t.equal(JSON.stringify(object), JSON.stringify({ age: 30, birthplace: 'neptune' }), 'object')
+    t.equal(
+      JSON.stringify(object),
+      JSON.stringify({age: 30, birthplace: 'neptune'}),
+      'object',
+    )
     t.end()
   })
 })

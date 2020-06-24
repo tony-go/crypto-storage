@@ -5,5 +5,5 @@ const PASSWORD_LENGTH = 5
 module.exports = {
   SALT_KEY,
   IV_KEY,
-  PASSWORD_LENGTH
+  PASSWORD_LENGTH,
 }
