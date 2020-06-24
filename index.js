@@ -1,9 +1,17 @@
 'use strict'
 
 const { EventEmitter } = require('events')
-const SALT_KEY = 'salt_key'
-const IV_KEY = 'iv_key'
-const PASSWORD_LENGTH = 5
+const { crypto, utils } = require('./lib')
+const { SALT_KEY, IV_KEY, PASSWORD_LENGTH } = require('./constant')
+
+const { getDerivedKey, getIv } = crypto
+const {
+  encode,
+  decode,
+  arrayBufferToBase64,
+  base64ToArrayBuffer,
+  hashString
+} = utils
 
 function CryptoStorage (password) {
   if (!(this instanceof CryptoStorage)) return new CryptoStorage(password)
@@ -111,96 +119,3 @@ CryptoStorage.prototype.close = function () {
 }
 
 module.exports = CryptoStorage
-
-// utils
-
-function encode (value) {
-  if (!value) return ''
-  if (typeof value !== 'object') {
-    value = { '-1': value }
-  }
-  return new TextEncoder('utf-8').encode(JSON.stringify(value))
-}
-
-function decode (buffer) {
-  if (!(!buffer || !buffer.constructor || buffer.constructor !== Uint8Array)) {
-    throw new Error('buffer args (Uint8Array) is required')
-  }
-  const stringValue = new TextDecoder('utf-8').decode(buffer)
-  const objectValue = JSON.parse(stringValue)
-  if (objectValue['-1']) return objectValue['-1']
-  return objectValue
-}
-
-function generateSalt () {
-  const salt = window.crypto.getRandomValues(new Uint8Array(8))
-  window.localStorage.setItem(SALT_KEY, JSON.stringify(Array.from(salt)))
-  return salt
-}
-
-function getSalt () {
-  return window.localStorage.getItem(SALT_KEY)
-    ? new Uint8Array(JSON.parse(window.localStorage.getItem(SALT_KEY)))
-    : generateSalt()
-}
-
-async function getDerivedKey (pw) {
-  const salt = getSalt()
-  const params = {
-    name: 'PBKDF2',
-    hash: 'SHA-1',
-    salt: salt,
-    iterations: 5000
-  }
-  const algorithm = { name: 'AES-GCM', length: 256 }
-  return window.crypto.subtle.deriveKey(
-    params,
-    pw,
-    algorithm,
-    false,
-    ['encrypt', 'decrypt']
-  )
-}
-
-function generateIv () {
-  const nonce = window.crypto.getRandomValues(new Uint8Array(16))
-  window.localStorage.setItem(IV_KEY, JSON.stringify(Array.from(nonce)))
-  return nonce
-}
-
-function getIv () {
-  return window.localStorage.getItem(IV_KEY)
-    ? new Uint8Array(JSON.parse(window.localStorage.getItem(IV_KEY)))
-    : generateIv()
-}
-
-function arrayBufferToBase64 (buffer) {
-  let binary = ''
-  const bytes = new Uint8Array(buffer)
-  const len = bytes.byteLength
-  for (let i = 0; i < len; i++) {
-    binary += String.fromCharCode(bytes[i])
-  }
-  return window.btoa(binary)
-}
-
-function base64ToArrayBuffer (stringBase64) {
-  const binary = window.atob(stringBase64)
-  const len = binary.length
-  const bytes = new Uint8Array(len)
-  for (let i = 0; i < len; i++) {
-    bytes[i] += binary.charCodeAt(i)
-  }
-  return bytes.buffer
-}
-function hashString (string) {
-  let hash = 0
-  let i
-  let chr
-  if (string.length === 0) return hash.toString(16)
-  for (i = 0; i < string.length; i++) {
-    chr = string.charCodeAt(i)
-    hash = ((hash << 5) - hash) + chr
-  }
-  return hash.toString(16)
-}

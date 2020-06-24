@@ -4,7 +4,7 @@
   "description": "A light & secure way to store data in browser.",
   "main": "index.js",
   "scripts": {
-    "test:lint": "standard",
+    "test:lint": "standard --fix",
     "test:unit": "browserify test.js --debug | tape-run",
     "test": "npm run test:lint && npm run test:unit"
   },
