@@ -1,3 +1,14 @@
 {
-  "extends": ["eslint:recommended", "prettier"]
+  "root": true,
+  "parserOptions": {
+    "ecmaVersion": 2019,
+    "sourceType": "module",
+    "parser": "babel-eslint"
+  },
+  "extends": ["eslint:recommended", "eslint-config-prettier"],
+  "env": {
+    "commonjs": true,
+    "browser": true,
+    "es6": true
+  }
 }
