@@ -12,7 +12,7 @@ progress ...
 ## Install
 
 ```
-npm install crypto-storage
+yarn add crypto-storage
 ```
 
 ## Usage
@@ -21,7 +21,7 @@ You'll find a demo [here](https://codesandbox.io/s/crypto-storage-u9v7d).
 
 ```javascript
 const CryptoStorage = require('crypto-storage')
-const storage = CryptoStorage('super-pw')
+const storage = CryptoStorage({name: 'tester', password: 'super-pw'})
 
 storage.on('ready', async function (err) {
   if (err) throw err
@@ -46,22 +46,22 @@ storage.on('close', () => {
 
 ### Methods
 
-#### const storage = CryptoStorage(password: String)
+#### const storage = CryptoStorage({name: String, password: String})
 
 Create a new storage. Event 'ready' should be emitted when instance will be
 ready.
 
-#### await storage.setItem(key: String, value: String|Array|Object)
+#### await storage.setItem(key: String, value: String|Array|Object): {[key]: value}
 
-Set an item in the storage.
+Set an item in the storage and emit a `data` and return it.
 
-#### await storage.getItem(key: String)
+#### await storage.getItem(key: String): {[key]: value}
 
 Get an item from the storage.
 
-#### storage.removeItem(key: String)
+#### storage.removeItem(key: String): String
 
-Remove an item from the storage.
+Remove an item from the storage and return the key.
 
 #### storage.close()
 
