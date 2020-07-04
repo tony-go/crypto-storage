@@ -1,13 +1,21 @@
 import {gql, AuthenticationError, UserInputError} from 'apollo-server'
-import {Parent} from '../types'
-import {IContext} from '../context'
 import {hash, compare} from 'bcrypt'
 import {sign} from 'jsonwebtoken'
+import {User} from '@prisma/client'
+
+import env from './../env'
+
+import {Parent} from '../types'
+import {IContext} from '../context'
+import {formatSignUpInput, createToken, formatPublicUser} from './utils'
 
 export const authTypeDefs = gql`
   input SignInInput {
-    email: String
-    password: String
+    email: String!
+    password: String!
+    firstName: String
+    lastName: String
+    genre: Genre
   }
 
   type SignOutput {
@@ -16,8 +24,8 @@ export const authTypeDefs = gql`
   }
 
   input SignUpInput {
-    email: String
-    password: String
+    email: String!
+    password: String!
   }
 
   extend type Mutation {
@@ -26,38 +34,43 @@ export const authTypeDefs = gql`
   }
 `
 
-interface ISignInInput {
-  input: {
-    email: string
-    password: string
-    firstName: string
-    lastName: string
-    genre: 'MALE' | 'FEMALE'
-  }
+export interface ISignInInput {
+  email: string
+  password: string
+  firstName: string
+  lastName: string
+  genre: 'MALE' | 'FEMALE'
 }
 
-interface ISignUpInput {
-  input: {
-    email: string
-    password: string
-  }
+export interface ISignUpInput {
+  email: string
+  password: string
 }
-
-export const secretKey = 'salut les copains'
 
 export const authResolvers = {
   Mutation: {
-    signIn: async (parent: Parent, {input}: ISignInInput, {db}: IContext) => {
-      input.password = await hash(input.password, 10)
-      input.email = input.email.toLowerCase()
-      const user = await db.user.create({data: input})
+    signIn: async (
+      parent: Parent,
+      {input}: {input: ISignInInput},
+      {db}: IContext,
+    ): Promise<{token: string; user: User}> => {
+      // We format input
+      const formattedInput = await formatSignUpInput(input)
 
+      // We add it to the db
+      const user = await db.user.create({data: formattedInput})
+
+      // we send back the user and a token
       return {
-        token: sign(user, secretKey, {expiresIn: '30d'}),
-        user,
+        token: createToken(user),
+        user: formatPublicUser(user),
       }
     },
-    signUp: async (parent: Parent, {input}: ISignUpInput, {db}: IContext) => {
+    signUp: async (
+      parent: Parent,
+      {input}: {input: ISignUpInput},
+      {db}: IContext,
+    ): Promise<{token: string; user: User}> => {
       const user = await db.user.findOne({
         where: {email: input.email.toLowerCase()},
       })
@@ -75,7 +88,7 @@ export const authResolvers = {
       }
 
       return {
-        token: sign(user, secretKey, {expiresIn: '30d'}),
+        token: sign(user, env.SECRET_KEY, {expiresIn: '30d'}),
         user,
       }
     },

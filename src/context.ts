@@ -1,8 +1,9 @@
 import {verify} from 'jsonwebtoken'
 import {PrismaClient} from '@prisma/client'
 
+import env from './env'
+
 import {IUser} from './users/types'
-import {secretKey} from './auth'
 
 export interface IContext {
   db: PrismaClient
@@ -13,7 +14,7 @@ export function getUser(token: string): null | IUser {
   if (!token) {
     return null
   }
-  return verify(token, secretKey) as IUser
+  return verify(token, env.SECRET_KEY) as IUser
 }
 
 const db = new PrismaClient()

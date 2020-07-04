@@ -17,6 +17,7 @@
   },
   "devDependencies": {
     "@prisma/cli": "^2.0.0-beta.1",
+    "@types/dotenv": "^8.2.0",
     "@types/node": "12.12.28",
     "@typescript-eslint/eslint-plugin": "^3.0.0",
     "@typescript-eslint/parser": "^3.0.0",
@@ -39,6 +40,8 @@
     "apollo-server": "^2.11.0",
     "apollo-server-testing": "^2.12.0",
     "bcrypt": "^4.0.1",
+    "dotenv": "^8.2.0",
+    "email-validator": "^2.0.4",
     "graphql": "^15.0.0",
     "jest": "^25.3.0",
     "jsonwebtoken": "^8.5.1",

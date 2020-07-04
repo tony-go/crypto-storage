@@ -6,6 +6,19 @@ Welcome to the `babanu-server` api
 
 You must install Docker & Node.Js on your computer at first.
 
+Add src/env.ts file with following lines
+
+```ts
+export default {
+  /**
+   * SECRET KEY
+   *
+   * used for hashing password
+   */
+  SECRET_KEY: <your secret key>,
+}
+```
+
 Start DB
 
 ```bash
