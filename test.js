@@ -1,63 +1,63 @@
 const vhs = require('vhs-tape')
 const CryptoStorage = require('.')
 
-vhs('CryptoStorage opening depends on context argument', async t => {
-  const storage = CryptoStorage({name: 'g-ray', password: 'password'})
-  const storage2 = CryptoStorage({name: 'A', password: 'pass'})
-  const storage3 = CryptoStorage()
-  const storage4 = CryptoStorage({name: 'A'})
-  const storage5 = CryptoStorage({password: 'my-pass'})
-  const storage6 = CryptoStorage({name: '', password: 'my-pass'})
+vhs('scenario #1: basic usage', async t => {
+  // create a new storage
+  const storage = new CryptoStorage({name: 'g-ray', password: 'password'})
+  await storage.create()
 
-  storage.on('ready', err => {
-    t.equal(err, null, 'Good context')
-  })
+  // add and get an item
+  await storage.setItem('foo', 'bar')
+  const foo = await storage.getItem('foo')
+  t.equal(foo, 'bar', 'get the item before closing the instance')
 
-  storage2.on('ready', err => {
-    t.equal(!!err.message, true, 'Wrong password length')
-  })
+  // close the session
+  storage.close()
 
-  storage3.on('ready', err => {
-    t.equal(!!err.message, true, 'No context')
-  })
+  // open it again
+  const sameStorage = new CryptoStorage({name: 'g-ray', password: 'password'})
+  await sameStorage.use()
 
-  storage4.on('ready', err => {
-    t.equal(!!err.message, true, 'No password in context')
-  })
+  // get the item
+  const foo2 = await sameStorage.getItem('foo')
+  t.equal(foo2, 'bar', 'get the item after closing the instance')
 
-  storage5.on('ready', err => {
-    t.equal(!!err.message, true, 'No password in name')
-  })
-
-  storage6.on('ready', err => {
-    t.equal(!!err.message, true, 'Wrong name length')
-  })
+  // clean up the storage
+  window.localStorage.clear();
 })
 
-vhs('Set/get crypt items in localStorage', t => {
-  const storage = CryptoStorage({name: 'tester', password: 'appendDataTest'})
-  storage.on('ready', async err => {
-    if (err) console.log(err)
+vhs('scenario #1: cannot create two instance with same context (pw, name)', async t => {
+  // create a new storage
+  const storage = new CryptoStorage({name: 'g-ray', password: 'password'})
+  await storage.create()
 
-    // string
-    await storage.setItem('name', 'crypto-storage')
-    const string = await storage.getItem('name')
-    t.equal(string, 'crypto-storage', 'string')
+  // create it again
+  try {
+    await storage.create()
+  } catch (error) {
+    t.equal(error.message, "Name g-ray is already used", 'should throw')
+  }
 
-    // array
-    const arrayKey = ['g-ray', 'braet', 'vivien']
-    await storage.setItem('friends', arrayKey)
-    const array = await storage.getItem('friends')
-    t.equal(array.toString(), arrayKey.toString(), 'array')
+  // clean up the storage
+  window.localStorage.clear();
+})
 
-    // object
-    await storage.setItem('details', {age: 30, birthplace: 'neptune'})
-    const object = await storage.getItem('details')
-    t.equal(
-      JSON.stringify(object),
-      JSON.stringify({age: 30, birthplace: 'neptune'}),
-      'object',
-    )
-    t.end()
-  })
+vhs('scenario #3: cannot create an instance without a name or a too small password', async t => {
+  const storage = new CryptoStorage({name: '', password: 'password'})
+
+  try {
+    // create a new storage
+    await storage.create()
+  } catch (error) {
+    t.equal(error.message, "name should be a string of 1 characters", 'no name')
+  }
+
+  const storage2 = new CryptoStorage({name: 'n', password: ''})
+
+  try {
+    // create a new storage
+    await storage2.create()
+  } catch (error) {
+    t.equal(error.message, "password should be a string of 5 characters", 'no name')
+  }
 })

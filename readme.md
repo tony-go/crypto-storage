@@ -2,12 +2,9 @@
 
 ![logo][logo]
 
-A light & secure way to store data in browser.
+A light & secure way to store data in a browser.
 
 Build for create server less front end application in a safe way.
-
-**Note** : the current version is a kind of 'beta', development is still in
-progress ...
 
 ## Install
 
@@ -17,29 +14,30 @@ yarn add crypto-storage
 
 ## Usage
 
-You'll find a demo [here](https://codesandbox.io/s/crypto-storage-u9v7d).
-
 ```javascript
 const CryptoStorage = require('crypto-storage')
-const storage = CryptoStorage({name: 'tester', password: 'super-pw'})
 
-storage.on('ready', async function (err) {
-  if (err) throw err
-  console.log('CryptoStorage is ready !')
+// create a storage
+const safeStorage = CryptoStorage({name: 'tester', password: 'super-pw'})
+safeStorage.create()
 
-  // know you can append and get data safely
-  await storage.setItem('name', 'tony')
-  const name = await storage.getItem('name')
-  console.log(name)
-})
+// create an item and get it
+await safeStorage.setItem('foo', 'bar')
+const foo = await safeStorage.getItem('foo')
+console.log(foo) // => 'bar'
 
-storage.on('data', data => {
-  console.log('data => ', data)
-})
+// close your session
+safeStorage.close()
 
-storage.on('close', () => {
-  console.log('CryptoStorage is closed !')
-})
+// open it again (.use() this time)
+const safeStorage2 = CryptoStorage({name: 'tester', password: 'super-pw'})
+safeStorage2.use()
+
+const newFoo = await safeStorage.getItem('foo')
+console.log(newFoo) // => 'bar'
+
+// if you try to create the session again
+safeStorage2.create() // => throw!!
 ```
 
 ## API
@@ -48,42 +46,31 @@ storage.on('close', () => {
 
 #### const storage = CryptoStorage({name: String, password: String})
 
-Create a new storage. Event 'ready' should be emitted when instance will be
-ready.
+Init a new storage instance.
 
-#### await storage.setItem(key: String, value: String|Array|Object): {[key]: value}
+#### await storage.create()
 
-Set an item in the storage and emit a `data` and return it.
+Create a new safe storage session.
+
+#### await storage.use()
+
+Open an existing session.
+
+#### await storage.setItem(key: String, value: String|Array|Object):{[key]: value}
+
+Set an item in the storage.
 
 #### await storage.getItem(key: String): {[key]: value}
 
 Get an item from the storage.
 
-#### storage.removeItem(key: String): String
+#### storage.removeItem(key: String): String|Array|Object)
 
 Remove an item from the storage and return the key.
 
 #### storage.close()
 
-Close access to CryptoStorage disabling set/get/removeItem
-
-#### storage.open(password :String)
-
-Open access to CryptoStorage enabling set/get/removeItem
-
-### Events
-
-#### storage.on('ready')
-
-Emitted when the storage is ready
-
-#### storage.on('data', data)
-
-Emitted when the new data is appended to the storage
-
-#### storage.on('close')
-
-Emitted when CryptoStorage instance is closed
+Close access to CryptoStorage disabling set/get/removeItem.
 
 [logo]:
   https://user-images.githubusercontent.com/22824417/63122825-eb526500-bfa7-11e9-9e6d-d7f8e95b361b.png
