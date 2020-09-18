@@ -1,6 +1,6 @@
 {
   "name": "crypto-storage",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "description": "A light & secure way to store data in browser.",
   "main": "index.js",
   "scripts": {
