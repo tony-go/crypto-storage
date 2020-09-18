@@ -36,8 +36,6 @@ class CryptoStorage {
   
     if (!name || typeof name !== 'string' || name.length < NAME_LENGTH) {
       throw new Error(`name should be a string of ${NAME_LENGTH} characters`)
-    } else {
-      this._setTableName(name)
     }
   
     if (
@@ -48,6 +46,7 @@ class CryptoStorage {
       throw new Error(`password should be a string of ${PASSWORD_LENGTH} characters`)
     }
   
+    this._setTableName(name)
     this._userName = await getEncryptedEntity(name)
     this._userPassword = await getEncryptedEntity(password)
   }

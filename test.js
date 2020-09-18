@@ -61,3 +61,35 @@ vhs('scenario #3: cannot create an instance without a name or a too small passwo
     t.equal(error.message, "password should be a string of 5 characters", 'no name')
   }
 })
+
+vhs('scenario 3: first try with a not valid password should not push name in table name', async t => {
+  let storage = new CryptoStorage({name: 'toto', password: 'pass'})
+
+  try {
+    await storage.create()
+  } catch (error) {
+    t.equal(error.message, 'password should be a string of 5 characters', 'should fail at first try')
+  }
+
+  storage = new CryptoStorage({name: 'toto', password: 'password'})
+  await storage.create()
+  await storage.setItem('foo', 'bar')
+  const item = await storage.getItem('foo')
+  t.equal(item, 'bar', 'crypto storage instance work')
+})
+
+vhs('scenario 4: cannot create two instance with a same name', async t => {
+  const storage = new CryptoStorage({name: 'newName', password: 'password'})
+  await storage.create()
+
+  await storage.setItem('foo', 'bar')
+  const item = await storage.getItem('foo')
+  t.equal(item, 'bar', 'crypto storage instance work')
+
+  const otherStorage = new CryptoStorage({name: 'newName', password: 'password2'})
+  try {
+    await otherStorage.create()
+  } catch (error) {
+    t.equal(error.message, 'Name newName is already used', 'could not create two instance with the same name')
+  }
+})
