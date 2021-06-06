@@ -30,14 +30,27 @@ console.log(foo) // => 'bar'
 safeStorage.close()
 
 // open it again (.use() this time)
-const safeStorage2 = CryptoStorage({name: 'tester', password: 'super-pw'})
+let safeStorage2 = CryptoStorage({name: 'tester', password: 'super-pw'})
 safeStorage2.use()
 
-const newFoo = await safeStorage.getItem('foo')
+const newFoo = await safeStorage2.getItem('foo')
 console.log(newFoo) // => 'bar'
 
 // if you try to create the session again
 safeStorage2.create() // => throw!!
+
+// if the storage is garbage collected whitout have been closed
+// ex: in case of refresh in the browser
+safeStorage2 = null;
+
+let safeStorage3 = CryptoStorage()
+safeStorage3.use() // the last session will be recovered
+
+const newFoo = await safeStorage3.getItem('foo')
+console.log(newFoo) // => 'bar'
+
+// close your session
+safeStorage3.close()
 ```
 
 ## API
@@ -54,7 +67,7 @@ Create a new safe storage session.
 
 #### await storage.use()
 
-Open an existing session.
+Open an existing session or recover the last one (in case of refresh in the browser).
 
 #### await storage.setItem(key: String, value: String|Array|Object):{[key]: value}
 
