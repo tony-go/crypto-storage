@@ -45,7 +45,7 @@ class CryptoStorage {
     ) {
       throw new Error(`password should be a string of ${PASSWORD_LENGTH} characters`)
     }
-  
+    
     this._setTableName(name)
     this._userName = await getEncryptedEntity(name)
     this._userPassword = await getEncryptedEntity(password)
@@ -177,7 +177,5 @@ class CryptoStorage {
     }
   }
 }
-
-
 
 module.exports = CryptoStorage
